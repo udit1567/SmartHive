@@ -40,7 +40,7 @@ API_KEY = "5588"
 
 @app.route('/')
 def index():
-    return welcome to our home automation site
+    return "welcome to our home automation site"
 
 @app.route('/register_device', methods=['GET'])
 def register_device():
