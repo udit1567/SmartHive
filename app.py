@@ -111,4 +111,5 @@ def get_data():
     data_list = [{"temperature": d.temperature, "humidity": d.humidity, "timestamp": d.timestamp} for d in data]
     return jsonify({"device_name": device.name, "data": data_list})
 
-
+if __name__ == "__main__":
+    app.run(debug=True)
