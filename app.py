@@ -38,6 +38,10 @@ class Data(db.Model):
 # API key for security
 API_KEY = "5588"
 
+@app.route('/')
+def index():
+    return welcome to our home automation site
+
 @app.route('/register_device', methods=['GET'])
 def register_device():
     """Endpoint to register a new device using URL parameters."""
