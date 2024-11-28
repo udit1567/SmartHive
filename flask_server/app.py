@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
+from flask_cors import CORS
+
+# Add this line in your Flask app setup
 
 # Initialize database
 db = SQLAlchemy()
@@ -16,6 +19,7 @@ def create_app():
     return app
 
 app = create_app()
+CORS(app)
 
 # Import models
 class Device(db.Model):
@@ -93,16 +97,7 @@ def update_data():
 
 @app.route('/get_data', methods=['GET'])
 def get_data():
-    """Retrieve the data for a specific device using URL parameters."""
     device_id = request.args.get('device_id')
-    if not device_id:
-        return jsonify({"error": "Device ID is required"}), 400
-
-    try:
-        device_id = int(device_id)
-    except ValueError:
-        return jsonify({"error": "Invalid device ID format"}), 400
-
     device = Device.query.get(device_id)
     if not device:
         return jsonify({"error": "Device not found"}), 404
