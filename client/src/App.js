@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import logo from './logo.svg';
 import './App.css';
 
@@ -8,7 +9,7 @@ function App() {
 
   useEffect(() => {
     // Fetch the data from Flask backend
-    fetch('http://127.0.0.1:5000/get_data?device_id=1') // Replace with your Flask server's IP if not on the same machine
+    fetch('https://0.0.0.0:10000/get_data?device_id=1') // Replace with your Flask server's IP if not on the same machine
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -31,24 +32,26 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Device Data Viewer</h1>
         <p>Connected Device: {deviceName}</p>
-        <table>
-          <thead>
+        <MDBTable>
+          <MDBTableHead dark>
             <tr>
-              <th>Temperature</th>
-              <th>Humidity</th>
-              <th>Timestamp</th>
+              <th scope='col'>#</th>
+              <th scope='col'>Temperature</th>
+              <th scope='col'>Humidity</th>
+              <th scope='col'>Timestamp</th>
             </tr>
-          </thead>
-          <tbody>
+          </MDBTableHead>
+          <MDBTableBody>
             {data.map((record, index) => (
               <tr key={index}>
+                <th scope='row'>{index + 1}</th>
                 <td>{record.temperature}</td>
                 <td>{record.humidity}</td>
                 <td>{record.timestamp}</td>
               </tr>
             ))}
-          </tbody>
-        </table>
+          </MDBTableBody>
+        </MDBTable>
       </header>
     </div>
   );
