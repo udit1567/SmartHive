@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_cors import CORS
@@ -42,9 +42,14 @@ class Data(db.Model):
 # API key for security
 API_KEY = "5588"
 
-@app.route('/')
+@app.route("/")
 def index():
-    return "welcome to our home automation site"
+    return send_from_directory(app.static_folder, "index.html")
+
+# Example API route
+@app.route("/api/some-data")
+def some_data():
+    return {"message": "Hello from Flask!"}
 
 @app.route('/register_device', methods=['GET'])
 def register_device():
