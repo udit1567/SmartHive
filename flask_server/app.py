@@ -99,6 +99,24 @@ def update_data():
 
     return jsonify({"message": f"Data updated successfully for device {device.name}!"})
 
+@app.route('/get_all_devices', methods=['GET'])
+def get_all_devices():
+    """Endpoint to get all registered devices."""
+    devices = Device.query.all()
+    device_list = [{"id": device.id, "name": device.name} for device in devices]
+    return jsonify(device_list)
+
+@app.route('/delete_device/<int:device_id>', methods=['DELETE'])
+def delete_device(device_id):
+    """Endpoint to delete a device by ID."""
+    device = Device.query.get(device_id)
+    if not device:
+        return jsonify({"error": "Device not found"}), 404
+    db.session.delete(device)
+    db.session.commit()
+    return jsonify({"message": f"Device {device_id} deleted successfully!"})
+
+
 
 @app.route('/get_data', methods=['GET'])
 def get_data():
