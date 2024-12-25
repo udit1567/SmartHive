@@ -1,5 +1,13 @@
 from flask import request, jsonify
 from .models import db, User
+from flask_socketio import socketio
+import secrets
+import string
+
+def generate_auth_token(length=8):
+    characters = string.ascii_letters + string.digits  # Alphanumeric characters
+    return ''.join(secrets.choice(characters) for _ in range(length))
+
 
 def login():
     data = request.get_json()
@@ -25,6 +33,9 @@ def signup():
     if User.query.filter_by(email=email).first():
         return jsonify({"message": "Email already exists!"}), 400
 
+    auth_token = generate_auth_token()
+
+    # Create a new user
     new_user = User(
         username=username,
         email=email,
@@ -32,9 +43,17 @@ def signup():
         last_name=last_name,
         password=password,
         address=address,
-        source=source
+        source=source,
+        auth_token=auth_token
     )
+
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message": "Signup successful!"}), 201
+    return jsonify({"message": "Signup successful!", "auth_token": auth_token}), 201
+
+
+
+
+
+
