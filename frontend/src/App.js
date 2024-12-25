@@ -1,10 +1,25 @@
-import FlickeringGrid from './components/FlickeringGrid';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import DashboardPage from './pages/DashboardPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignupPage';
+import './styles.css';
+
+
 
 function App() {
   return (
-    <div>
-      <FlickeringGrid width={1210} height={560} squareSize={4} gridGap={6} flickerChance={0.5} maxOpacity={0.4} color="rgb(4, 59, 65)" />
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
