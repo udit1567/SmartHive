@@ -1,0 +1,126 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.home-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.hero-section {
+    background: linear-gradient(to right, #4e73df, #1cc88a);
+    color: white;
+    padding: 100px 10px;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero-subtitle {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+}
+
+.hero-button {
+    background-color: #ff7f50;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.hero-button:hover {
+    background-color: #ff6347;
+}
+
+/* Features Section */
+.features-section {
+    background-color: #ffffff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.features-title {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: #333333;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+.feature-item {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.feature-item h3 {
+    font-size: 1.8em;
+    color: #333333;
+    margin-bottom: 15px;
+}
+
+.feature-item p {
+    font-size: 1.1em;
+    color: #666666;
+}
+
+/* Footer */
+.footer {
+    background-color: #333333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.footer p {
+    font-size: 1.1em;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5em;
+    }
+
+    .hero-subtitle {
+        font-size: 1.3em;
+    }
+
+    .features-title {
+        font-size: 2em;
+    }
+
+    .feature-item {
+        padding: 15px;
+    }
+}
