@@ -8,19 +8,22 @@ import Navbar from './Components/Navbar';
 import './styles.css';
 import Add_device from './Dashboard/Add_device';
 import Setting from './Dashboard/Setting';
+import ProfilePage from "./pages/ProfilePage";
+import useToken from './pages/useTokens';
 
 function App() {
+  const { token, removeToken, setToken } = useToken();
   return (
     <>
     <Navbar />
     <div>
       <Routes>
+        <Route exact path="/profile" element={<ProfilePage token={token} setToken={setToken}/>}></Route>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/profile/:email" element={<ProfilePage />} />
+        <Route path="/dashboard" element={<DashboardPage token={token} setToken={setToken}/>} />
         <Route path="/add" element={<Add_device />} />
         <Route path="/setting" element={<Setting />} />
-        
-
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>

@@ -13,20 +13,6 @@ class User(db.Model):
     source = db.Column(db.String(255), nullable=True)
     auth_token = db.Column(db.String(64), unique=True, nullable=True)
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'address': self.address,
-            'source': self.source,
-            'auth_token': self.auth_token,
-        }
-
-    def __repr__(self):
-        return f'<User {self.username}>'
 
 
 
@@ -37,15 +23,3 @@ class Data(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('data', lazy=True, cascade="all, delete-orphan"))
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'temperature': self.temperature,
-            'humidity': self.humidity,
-            'timestamp': self.timestamp.isoformat(),
-            'user_id': self.user_id
-        }
-
-    def __repr__(self):
-        return f'<Data {self.timestamp} - User {self.user_id}>'

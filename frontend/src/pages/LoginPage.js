@@ -1,49 +1,65 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import useToken from "./useTokens";  // Import the useToken hook
 import "./LoginPage.css";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);  // Loading state
     const navigate = useNavigate();  // Hook for navigation
+
+    // Use the custom hook to manage token state
+    const { setToken } = useToken();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Basic client-side validation
         if (!email || !password) {
             setErrorMessage("Both fields are required.");
-        } else {
-            setErrorMessage("");
-            
-            try {
-                const response = await fetch("http://127.0.0.1:5000/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ email, password }),
-                });
+            return;
+        }
+        
+        setErrorMessage("");  // Clear previous error
+        setIsLoading(true);  // Start loading
 
-                const data = await response.json();
+        try {
+            const response = await axios.post("http://127.0.0.1:5000/login", {
+                email,
+                password,
+            });
 
-                if (response.ok) {
-                    alert(data.message);
-                    navigate("/dashboard");
-                } else {
-                    setErrorMessage(data.error);
-                }
-            } catch (error) {
+            if (response.status === 200) {
+                const { access_token, user_info } = response.data;
+                setToken(access_token); 
+                localStorage.setItem("access_token", access_token);
+                localStorage.setItem("email", JSON.stringify(email));
+                alert("Login successful!");
+                navigate("/dashboard");
+
+            }
+        } catch (error) {
+            if (error.response) {
+                setErrorMessage(error.response.data.error || "Invalid email or password.");
+            } else {
                 setErrorMessage("An error occurred. Please try again later.");
             }
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="login-container hero-section" >
+        <div className="login-container hero-section">
             <div className="login-form">
                 <h2>Build.io</h2>
+                
+                {/* Display error message if any */}
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
+                
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
@@ -67,8 +83,8 @@ const LoginPage = () => {
                         />
                     </div>
 
-                    <button type="submit" className="submit-btn">
-                        Login  
+                    <button type="submit" className="submit-btn" disabled={isLoading}>
+                        {isLoading ? "Logging in..." : "Login"}
                     </button>
                 </form>
 

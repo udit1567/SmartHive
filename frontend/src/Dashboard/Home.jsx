@@ -1,4 +1,3 @@
-import React from "react";
 import Sidenav from "./Sidenav";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,13 +6,55 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Home() {
+  const [profileData, setProfileData] = useState(null);
+
+  // Retrieve email and token from localStorage
+  const email = JSON.parse(localStorage.getItem("email"));
+  const token = localStorage.getItem("access_token");
+
+  console.log("Email from localStorage:", email);
+
+  // Fetch profile data once the component is mounted or token changes
+  useEffect(() => {
+    if (token) {
+      console.log("Token in state:", token);
+      axios({
+        method: "GET",
+        url: `http://127.0.0.1:5000/profile/${email}`,
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      })
+        .then((response) => {
+          const res = response.data;
+          console.log("Response from API:", res);
+          if (res.access_token) {
+            // Store the new token if available
+            localStorage.setItem('access_token', res.access_token);  // Store the token in localStorage
+          }
+          setProfileData({
+            profile_name: res.name,
+            profile_email: res.email,
+            token: res.token,  // Assuming this field is correct
+          });
+        })
+        .catch((error) => {
+          console.error("API error:", error);
+          if (error.response) {
+            console.log(error.response);
+          }
+        });
+    }
+  }, [token, email]); // Re-run effect when token or email changes
+
   return (
     <>
       <Navbar />
@@ -155,7 +196,7 @@ export default function Home() {
                         fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
                       }}
                     >
-                      Authorization Token
+                      Authentication key for {profileData ? profileData.profile_email : 'unable to load'} 
                     </Typography>
                     <Typography
                       variant="body2"
@@ -164,7 +205,7 @@ export default function Home() {
                         fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
                       }}
                     >
-                      Authenticate the device
+                      {profileData ? profileData.token : 'Loading...'}
                     </Typography>
                   </CardContent>
                   <CardActions>
