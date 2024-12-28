@@ -11,11 +11,14 @@ import Setting from './Dashboard/Setting';
 import ProfilePage from "./pages/ProfilePage";
 import useToken from './pages/useTokens';
 
+import AdminPanel from './pages/AdminPanel';
+
 function App() {
   const { token, removeToken, setToken } = useToken();
   return (
     <>
     <Navbar />
+    
     <div>
       <Routes>
         <Route exact path="/profile" element={<ProfilePage token={token} setToken={setToken}/>}></Route>
@@ -26,6 +29,7 @@ function App() {
         <Route path="/setting" element={<Setting />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path='/admin' exact element={<AdminPanel />} />
       </Routes>
     </div>
     </>
