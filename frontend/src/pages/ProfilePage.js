@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";  // To get the email from URL
 import { Box, Typography, Card, CardContent, CardActions, Button } from "@mui/material";
+import Sidenav from "../Dashboard/Sidenav";
 
 const ProfilePage = () => {
     const { email } = useParams();  // Get the email from the URL parameter
@@ -19,6 +20,8 @@ const ProfilePage = () => {
     }, [email]);  // Run when the email in the URL changes
 
     return (
+        <>
+        <Sidenav/>
         <Box sx={{ padding: 3 }}>
             {userData ? (
                 <Card>
@@ -38,6 +41,7 @@ const ProfilePage = () => {
                 <Typography variant="body1">Loading...</Typography>
             )}
         </Box>
+        </>
     );
 };
 

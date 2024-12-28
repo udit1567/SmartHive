@@ -17,7 +17,7 @@ function App() {
   const { token, removeToken, setToken } = useToken();
   return (
     <>
-    <Navbar />
+     {window.location.pathname !== '/signup' && window.location.pathname !== '/login' && <Navbar />} 
     
     <div>
       <Routes>
