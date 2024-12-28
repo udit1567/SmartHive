@@ -21,14 +21,15 @@ import Sidenav from "../Dashboard/Sidenav";
 const AdminPanel = () => {
   return (
     <>
-      {/* <Box height={30} /> */}
+      <Box height={30} />
       <Box sx={{ display: "flex" }}>
 
       <Sidenav />
       <Box sx={{ display: "flex", flexDirection: "column", p: 2 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Admin Panel
+          {/* Admin Panel */}
         </Typography>
+        <Box height={40} />
 
         {/* Role-Based Actions */}
         <Section title="Role-Based Access Control">
@@ -75,7 +76,7 @@ const AdminPanel = () => {
           <Typography variant="body1">Manage IoT devices:</Typography>
           <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
             <TextField label="Device Name" variant="outlined" size="small" />
-            <Button variant="contained">Add Device</Button>
+            <Button variant="contained" >Add Device</Button>
             <Button variant="outlined" color="error">
               Remove Device
             </Button>
