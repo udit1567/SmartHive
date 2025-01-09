@@ -4,12 +4,15 @@ import HomePage from './pages/HomePage';
 import DashboardPage from './Dashboard/DashboardPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignupPage';
+import Navbar from './Components/Navbar';
 import './styles.css';
 import Add_device from './Dashboard/Add_device';
 import Setting from './Dashboard/Setting';
 
 function App() {
   return (
+    <>
+    <Navbar />
     <div>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -22,6 +25,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </div>
+    </>
   );
 }
 

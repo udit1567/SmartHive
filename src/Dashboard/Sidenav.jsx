@@ -20,6 +20,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useAppStore } from '../appStore';
 
 
 const drawerWidth = 240;
@@ -104,8 +105,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Sidenav() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+ // const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
+  // const updateOpen = useAppStore((state)=> state.updateOpen);
+  const open = useAppStore((state)=>state.dopen);
 
   
 
@@ -115,14 +118,14 @@ export default function Sidenav() {
       
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={()=>setOpen(!open)}>
+          
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+          
         </DrawerHeader>
         <Divider />
         <List>
       {/* Home */}
-      <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/setiing")}}>
+      <ListItem disablePadding sx={{ display: 'block' }} onClick={()=>{navigate("/dashboard")}}>
         <ListItemButton
         //   component={Link}
         //   to="/"
