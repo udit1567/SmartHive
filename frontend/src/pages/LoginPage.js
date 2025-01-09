@@ -7,6 +7,7 @@ import "./LoginPage.css";
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [uid, setid] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);  // Loading state
     const navigate = useNavigate();  // Hook for navigation
@@ -33,10 +34,11 @@ const LoginPage = () => {
             });
 
             if (response.status === 200) {
-                const { access_token, user_info } = response.data;
+                const { access_token, user_info ,uid } = response.data;
                 setToken(access_token); 
                 localStorage.setItem("access_token", access_token);
                 localStorage.setItem("email", JSON.stringify(email));
+                localStorage.setItem("id", uid);
                 alert("Login successful!");
                 navigate("/dashboard");
 
