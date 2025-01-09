@@ -1,134 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
-  Grid,
-  Card,
-  CardContent,
-  Button,
   TextField,
+  Button,
+  TableContainer,
   Table,
   TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
   TableRow,
+  TableCell,
   Paper,
-  Switch,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  TableHead,
 } from "@mui/material";
-import Sidenav from "../Dashboard/Sidenav";
-// Sample Component Structure
+import Sidenav from "../Dashboard/Sidenav"; // Import Sidenav or replace with actual component
+
 const AdminPanel = () => {
   return (
     <>
-      <Box height={30} />
+      <Box height={60} />
       <Box sx={{ display: "flex" }}>
+        <Sidenav />
+        <Box sx={{ display: "flex", flexDirection: "column", p: 2 }}>
+          <Typography variant="h4" component="h1" gutterBottom>
+            Admin Panel
+          </Typography>
+          <Box height={40} />
 
-      <Sidenav />
-      <Box sx={{ display: "flex", flexDirection: "column", p: 2 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          {/* Admin Panel */}
-        </Typography>
-        <Box height={40} />
-
-        {/* Role-Based Actions */}
-        <Section title="Role-Based Access Control">
-          <Box sx={{ mb: 3 }}>
+          {/* User Activity Log Section */}
+          <Section title="User Activity Log">
             <Typography variant="body1">
-              Assign roles to users and manage their permissions.
+              View detailed activity logs for all users:
             </Typography>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 2 }}>
-              <TextField label="User Email" variant="outlined" size="small" />
-              <TextField label="Role" variant="outlined" size="small" />
-              <Button variant="contained">Assign Role</Button>
+            <TableContainer component={Paper} sx={{ mt: 2 }}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>User email</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Timeline</TableCell>
+                    <TableCell>Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <ActivityLogTable userEmail="user1@example.com" initialStatus="active" />
+                  <ActivityLogTable userEmail="user2@example.com" initialStatus="blocked" />   
+                  {/* blocked/active */}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Section>
+
+          {/* Data Visualization */}
+          <Section title="Data Visualization">
+            <Typography variant="body1">Real-time data updates:</Typography>
+            <Box sx={{ height: 300, mt: 2 }}>
+              <Typography variant="body2">Graph Placeholder</Typography>
             </Box>
-          </Box>
-        </Section>
+          </Section>
 
-        {/* User Management */}
-        <Section title="User Activity Log">
-          <Typography variant="body1">
-            View detailed activity logs for all users:
-          </Typography>
-          <TableContainer component={Paper} sx={{ mt: 2 }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>User Email</TableCell>
-                  <TableCell>Action</TableCell>
-                  <TableCell>Timestamp</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {/* Map activity log data here */}
-                <TableRow>
-                  <TableCell>user@example.com</TableCell>
-                  <TableCell>Logged In</TableCell>
-                  <TableCell>2024-12-26 12:34 PM</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Section>
-
-        {/* Device Management */}
-        <Section title="Device Management">
-          <Typography variant="body1">Manage IoT devices:</Typography>
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-            <TextField label="Device Name" variant="outlined" size="small" />
-            <Button variant="contained" >Add Device</Button>
-            <Button variant="outlined" color="error">
-              Remove Device
-            </Button>
-          </Box>
-          <Box sx={{ mt: 2 }}>
-            <Typography variant="h6">Connected Devices</Typography>
-            {/* Render list of devices here */}
-          </Box>
-        </Section>
-
-        {/* Data Visualization */}
-        <Section title="Data Visualization">
-          <Typography variant="body1">Real-time data updates:</Typography>
-          <Box sx={{ height: 300, mt: 2 }}>
-            {/* Add line graph component here */}
-            <Typography variant="body2">
-              Graph 
+          {/* Account Management */}
+          <Section title="Account Management">
+            <Typography variant="body1">
+              Reset admin account passwords:
             </Typography>
-          </Box>
-        </Section>
-
-        {/* Automation Templates */}
-        <Section title="Automation Templates">
-          <Typography variant="body1">
-            Create or apply automation rules:
-          </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
-            <Button variant="outlined">
-              Template 1: Set temperature threshold
-            </Button>
-            <Button variant="outlined">
-              Template 2: Notify on abnormal readings
-            </Button>
-            <Button variant="outlined">
-              Template 3: Turn off device after X hours
-            </Button>
-          </Box>
-        </Section>
-
-        {/* Password Reset */}
-        <Section title="Account Management">
-          <Typography variant="body1">
-            Reset admin account passwords:
-          </Typography>
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-            <TextField label="Admin Email" variant="outlined" size="small" />
-            <Button variant="contained" color="primary">
-              Reset Password
-            </Button>
-          </Box>
-        </Section>
-      </Box>
+            <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+              <TextField label="Admin Email" variant="outlined" size="small" />
+              <Button variant="contained" color="primary">
+                Reset Password
+              </Button>
+            </Box>
+          </Section>
+        </Box>
       </Box>
     </>
   );
@@ -143,14 +88,74 @@ const Section = ({ title, children }) => (
   </Box>
 );
 
-export default AdminPanel;
+const ActivityLogTable = ({ userEmail, initialStatus }) => {
+  const [isBlocked, setIsBlocked] = useState(initialStatus === "blocked");
+  const [openDialog, setOpenDialog] = useState(false);
+  const [action, setAction] = useState(isBlocked ? "unblock" : "block");
 
-/**
- * To Implement Backend:
- * - For role management, create endpoints like `POST /assign-role`.
- * - For activity logs, fetch data from `GET /user-logs`.
- * - Device management needs APIs like `POST /devices` and `DELETE /devices`.
- * - Fetch real-time data using WebSocket or periodic polling from `/data-stream`.
- * - Create automation rules with `POST /automation-templates`.
- * - Password reset handled via `POST /reset-password`.
- */
+  const handleButtonClick = () => {
+    setAction(isBlocked ? "unblock" : "block"); // Toggle action
+    setOpenDialog(true);
+  };
+
+  const handleConfirmAction = async () => {
+    try {
+      const endpoint = isBlocked
+        ? `/api/blockUser/${userEmail}`
+        : `/api/unblockUser/${userEmail}`; // Call the corresponding endpoint
+
+      const response = await fetch(endpoint, { method: "POST" });
+
+      if (response.ok) {
+        setIsBlocked(!isBlocked); // Toggle the blocked status
+      } else {
+        console.error("Failed to update user status.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setOpenDialog(false); // Close the dialog
+    }
+  };
+
+  return (
+    <>
+      <TableRow>
+        <TableCell>{userEmail}</TableCell>
+        <TableCell>{isBlocked ? "Blocked" : "Active"}</TableCell>
+        {/* <TableCell>{new Date().toLocaleString()}</TableCell> */}
+        <TableCell>CHECK CHECK</TableCell>
+        <TableCell align="center">
+
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: isBlocked ? "green" : "red", // Toggle button color based on status
+              color: "white",
+            }}
+            onClick={handleButtonClick}
+          >
+            {isBlocked ? "Unblock" : "Block"} {/* Toggle button text */}
+          </Button>
+        </TableCell>
+      </TableRow>
+
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Do you want to {action} this user?</DialogTitle>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleConfirmAction}
+            color={action === "block" ? "success" : "error"} // Color based on action
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
+};
+
+export default AdminPanel;
