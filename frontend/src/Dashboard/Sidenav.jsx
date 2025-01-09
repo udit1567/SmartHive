@@ -25,8 +25,11 @@ import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import AdminPanelSettingsTwoToneIcon from '@mui/icons-material/AdminPanelSettingsTwoTone';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import SettingsIcon from '@mui/icons-material/Settings';
+import {  useLocation } from "react-router-dom";
+
 
 const drawerWidth = 240;
+
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -112,6 +115,9 @@ export default function Sidenav() {
   const navigate = useNavigate();
   // const updateOpen = useAppStore((state)=> state.updateOpen);
   const open = useAppStore((state) => state.dopen);
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -130,10 +136,12 @@ export default function Sidenav() {
           {/* Home */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/dashboard");
-            }}
+            
+            onClick={() => navigate("/dashboard")}
+              sx={{
+                display: "block",
+                backgroundColor: isActive("/dashboard") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              }}
           >
             <ListItemButton
               //   component={Link}
@@ -187,10 +195,11 @@ export default function Sidenav() {
           {/* Admin Panel */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/admin");
-            }}
+            // sx={{ display: "block" }}
+            onClick={() => navigate("/admin")}
+              sx={{
+                backgroundColor: isActive("/admin") ? "rgba(0, 0, 0, 0.1)" : "inherit", display:"block"
+              }}
           >
             <ListItemButton
               //   component={Link}
@@ -244,10 +253,11 @@ export default function Sidenav() {
           {/* Add Device */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/add");
-            }}
+            onClick={() => navigate("/add")}
+              sx={{
+                display: "block",
+                backgroundColor: isActive("/add") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              }}
           >
             <ListItemButton
               //   component={Link}
@@ -301,10 +311,11 @@ export default function Sidenav() {
           {/* Settings */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/setting");
-            }}
+            onClick={() => navigate("/setting")}
+              sx={{
+                display: "block",
+                backgroundColor: isActive("/setting") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              }}
           >
             <ListItemButton
               sx={[

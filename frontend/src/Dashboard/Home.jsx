@@ -36,6 +36,8 @@ ChartJS.register(
   Filler
 );
 
+
+
 export default function Home() {
   const [profileData, setProfileData] = useState(null);
   const [tempHumidityData, setTempHumidityData] = useState([]);
@@ -75,7 +77,7 @@ export default function Home() {
       // Fetch temperature and humidity data
       axios({
         method: "GET",
-        url: `http://192.168.1.36:5000/get_data/${id}`,
+        url: `http://127.0.0.1:5000/get_data/${id}`,
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -89,6 +91,7 @@ export default function Home() {
           console.error("Temperature/Humidity API error:", error);
         });
     }
+
   }, [token, email, id]);
 
   const graphData = {
@@ -100,15 +103,15 @@ export default function Home() {
         fill: true,
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgba(255, 99, 132, 1)",
-        tension: 0.4,
+        tension: 0.6,
       },
       {
         label: "Humidity (%)",
         data: tempHumidityData.map((entry) => entry.humidity),
         fill: true,
-        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        backgroundColor: "rgba(0, 153, 255, 0.2)",
         borderColor: "rgba(54, 162, 235, 1)",
-        tension: 0.4,
+        tension: 0.6,
       },
     ],
   };
@@ -139,6 +142,12 @@ export default function Home() {
       },
     },
   };
+  const handleCopy = () => {
+    const textToCopy = profileData ? profileData.token : "Loading...";
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => alert("Token copied to clipboard!"))
+      .catch((err) => console.error("Failed to copy token:", err));
+  };
 
 
   return (
@@ -168,6 +177,7 @@ export default function Home() {
                     left: 0,
                     right: 0,
                     bottom: 0,
+                    overflowY: "auto",
                   }}
                 >
                   <CardContent>
@@ -207,21 +217,6 @@ export default function Home() {
                       </tbody>
                     </table>
                   </CardContent>
-
-                  <CardActions
-                    sx={{
-                      justifyContent: "center",
-                      mt: "auto",
-                      pb: 2,
-                    }}
-                  >
-                    <Button size="small" sx={{ mx: 1 }}>
-                      Refresh
-                    </Button>
-                    <Button size="small" sx={{ mx: 1 }}>
-                      Help
-                    </Button>
-                  </CardActions>
                 </Card>
               </Box>
             </Grid>
@@ -241,6 +236,7 @@ export default function Home() {
                     left: 0,
                     right: 0,
                     bottom: 0,
+                    overflowY: "auto",
                   }}
                 >
                   <CardContent>
@@ -272,10 +268,6 @@ export default function Home() {
                     </table>
 
                   </CardContent>
-                  <CardActions>
-                    <Button size="small">Refresh</Button>
-                    <Button size="small">Help</Button>
-                  </CardActions>
                 </Card>
               </Box>
             </Grid>
@@ -315,19 +307,18 @@ export default function Home() {
                         fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
                       }}
                     >
-                      {profileData ? profileData.token : 'Loading...'}
+                      <h2>{profileData ? profileData.token : 'Loading...'}</h2>
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Auth</Button>
-                    <Button size="small">Help</Button>
+                    <Button size="small" onClick={handleCopy}>Copy</Button>
                   </CardActions>
                 </Card>
               </Box>
             </Grid>
 
             <Grid item xs={12}>
-              <Card sx={{ height: "60vh", width: "100%" }}>
+              <Card sx={{ height: "63vh", width: "100%" }}>
                 <CardContent>
 
                   <Typography
@@ -336,7 +327,7 @@ export default function Home() {
                     component="div"
                     sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
                   >
-                    Temperature over the time
+                    Temperature & humidity over the time
                   </Typography>
                   <Typography
                     variant="body2"
@@ -346,16 +337,13 @@ export default function Home() {
                     }}
                   >
                     <div>
-                      <div style={{ width: "1100px", height: "500px" }}>
+                      <div style={{ width: "1100px", height: "900px" }}>
                         <Line data={graphData} options={graphOptions} />
                       </div>
                     </div>
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Share</Button>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
+                
               </Card>
             </Grid>
           </Grid>
