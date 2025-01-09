@@ -1,34 +1,202 @@
-import React from 'react'
-import Sidenav from './Sidenav'
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Navbar from '../Components/Navbar';
+import React, { useState } from "react";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  DialogContent,
+} from "@mui/material";
 
-export default function Setting() {
+const InputPage = () => {
+  // State hooks
+  const [newEmail, setNewEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [authToken, setAuthToken] = useState("ABC123XYZ"); // Mock token
+  const [address, setAddress] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
+
+  // Handle Save button click for changing email
+  const handleSaveEmail = async () => {
+    if (currentPassword !== "userCurrentPassword") {
+      setDialogMessage("Invalid current password. Please try again.");
+      setOpenDialog(true);
+      return;
+    }
+    console.log("Email changed to:", newEmail);
+  };
+
+  // Handle Save button click for password change
+  const handleSavePassword = () => {
+    if (newPassword && currentPassword) {
+      console.log("Password changed");
+    }
+  };
+
   return (
-    <>
+    <Box sx={{ p: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        User Details
+      </Typography>
 
-<Navbar/>
-<Box height={30} />
+      {/* New Email and Current Password for validation */}
+      <Grid container spacing={2} sx={{ my: 3 }}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="New Email"
+            variant="outlined"
+            fullWidth
+            size="small"
+            type="email"
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Current Password"
+            variant="outlined"
+            fullWidth
+            size="small"
+            type="password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+          />
+        </Grid>
+      </Grid>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSaveEmail}
+        sx={{
+          mt: 2,
+          width: { xs: "100%", sm: "auto" },
+          padding: "8px 16px",
+          fontSize: "14px",
+          borderRadius: "5px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            backgroundColor: "#1976d2",
+            boxShadow: "0 6px 10px rgba(0, 0, 0, 0.2)",
+          },
+        }}
+      >
+        Save Email
+      </Button>
 
-    <Box sx={{ display: 'flex' }}>
-    <Sidenav />
-    
+      {/* Authentication Token */}
+      <Grid container spacing={2} sx={{ my: 3 }}>
+        <Grid item xs={12}>
+          <TextField
+            label="Authentication Token"
+            variant="outlined"
+            fullWidth
+            value={authToken}
+            disabled
+            size="small"
+          />
+        </Grid>
+      </Grid>
 
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-    <h1>Settings</h1>
-        <Typography paragraph>
-          hello1
-        </Typography>
-        <Typography paragraph>
-          hello1
-        </Typography>
-      </Box>
+      {/* Address Field */}
+      <Grid container spacing={2} sx={{ my: 3 }}>
+        <Grid item xs={12}>
+          <TextField
+            label="Address"
+            variant="outlined"
+            fullWidth
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            multiline
+            rows={2}
+            size="small"
+          />
+        </Grid>
+      </Grid>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => console.log("Address saved")}
+        sx={{
+          mt: 2,
+          width: { xs: "100%", sm: "auto" },
+          padding: "8px 16px",
+          fontSize: "14px",
+          borderRadius: "5px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            backgroundColor: "#1976d2",
+            boxShadow: "0 6px 10px rgba(0, 0, 0, 0.2)",
+          },
+        }}
+      >
+        Save Address
+      </Button>
 
+      {/* Change Password */}
+      <Grid container spacing={2} sx={{ my: 3 }}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="New Password"
+            variant="outlined"
+            fullWidth
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            size="small"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Current Password"
+            variant="outlined"
+            fullWidth
+            type="password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            size="small"
+          />
+        </Grid>
+      </Grid>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSavePassword}
+        sx={{
+          mt: 2,
+          width: { xs: "100%", sm: "auto" },
+          padding: "8px 16px",
+          fontSize: "14px",
+          borderRadius: "5px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          "&:hover": {
+            backgroundColor: "#1976d2",
+            boxShadow: "0 6px 10px rgba(0, 0, 0, 0.2)",
+          },
+        }}
+      >
+        Save Password
+      </Button>
 
+      {/* Dialog for confirmation */}
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>Validation Error</DialogTitle>
+        <DialogContent>
+          <Typography color="error">{dialogMessage}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
-
-    </>
   );
-}
+};
 
+export default InputPage;
