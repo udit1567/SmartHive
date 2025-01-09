@@ -12,48 +12,134 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 export default function Home() {
   const [profileData, setProfileData] = useState(null);
-
-  // Retrieve email and token from localStorage
+  const [tempHumidityData, setTempHumidityData] = useState([]);
   const email = JSON.parse(localStorage.getItem("email"));
   const token = localStorage.getItem("access_token");
+  const id = localStorage.getItem("id");
 
   console.log("Email from localStorage:", email);
 
-  // Fetch profile data once the component is mounted or token changes
+  // Fetch profile and temperature/humidity data
   useEffect(() => {
-    if (token) {
-      console.log("Token in state:", token);
+    if (token && id) {
+      // Fetch profile data
       axios({
         method: "GET",
         url: `http://127.0.0.1:5000/profile/${email}`,
         headers: {
-          Authorization: 'Bearer ' + token
-        }
+          Authorization: "Bearer " + token,
+        },
       })
         .then((response) => {
           const res = response.data;
-          console.log("Response from API:", res);
+          console.log("Response from profile API:", res);
           if (res.access_token) {
-            // Store the new token if available
-            localStorage.setItem('access_token', res.access_token);  // Store the token in localStorage
+            localStorage.setItem("access_token", res.access_token);
           }
           setProfileData({
             profile_name: res.name,
             profile_email: res.email,
-            token: res.token,  // Assuming this field is correct
+            token: res.token,
           });
         })
         .catch((error) => {
-          console.error("API error:", error);
-          if (error.response) {
-            console.log(error.response);
-          }
+          console.error("Profile API error:", error);
+        });
+
+      // Fetch temperature and humidity data
+      axios({
+        method: "GET",
+        url: `http://192.168.1.36:5000/get_data/${id}`,
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((response) => {
+          const data = response.data.data; // Access the `data` array
+          console.log("Temperature and Humidity Data:", data);
+          setTempHumidityData(data); // Save the array to state
+        })
+        .catch((error) => {
+          console.error("Temperature/Humidity API error:", error);
         });
     }
-  }, [token, email]); // Re-run effect when token or email changes
+  }, [token, email, id]);
+
+  const graphData = {
+    labels: tempHumidityData.map((entry) => entry.timestamp),
+    datasets: [
+      {
+        label: "Temperature (°C)",
+        data: tempHumidityData.map((entry) => entry.temperature),
+        fill: true,
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        tension: 0.4,
+      },
+      {
+        label: "Humidity (%)",
+        data: tempHumidityData.map((entry) => entry.humidity),
+        fill: true,
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        tension: 0.4,
+      },
+    ],
+  };
+
+  const graphOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Temperature and Humidity Over Time",
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Time",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Value",
+        },
+      },
+    },
+  };
+
 
   return (
     <>
@@ -102,8 +188,24 @@ export default function Home() {
                         fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
                       }}
                     >
-                      Current Temperature here
+
                     </Typography>
+                    <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
+                      <thead>
+                        <tr>
+                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Timestamp</th>
+                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Temperature (°C)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tempHumidityData.map((entry, index) => (
+                          <tr key={index}>
+                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
+                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.temperature}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </CardContent>
 
                   <CardActions
@@ -152,15 +254,23 @@ export default function Home() {
                     >
                       Humidity
                     </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: "text.secondary",
-                        fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
-                      }}
-                    >
-                      Humidity here
-                    </Typography>
+                    <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
+                      <thead>
+                        <tr>
+                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Timestamp</th>
+                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Humidity (%)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tempHumidityData.map((entry, index) => (
+                          <tr key={index}>
+                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
+                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.humidity}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+
                   </CardContent>
                   <CardActions>
                     <Button size="small">Refresh</Button>
@@ -196,7 +306,7 @@ export default function Home() {
                         fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
                       }}
                     >
-                      Authentication key for {profileData ? profileData.profile_email : 'unable to load'} 
+                      Authentication key for {profileData ? profileData.profile_email : 'unable to load'}
                     </Typography>
                     <Typography
                       variant="body2"
@@ -219,6 +329,7 @@ export default function Home() {
             <Grid item xs={12}>
               <Card sx={{ height: "60vh", width: "100%" }}>
                 <CardContent>
+
                   <Typography
                     gutterBottom
                     variant="h5"
@@ -234,7 +345,11 @@ export default function Home() {
                       fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
                     }}
                   >
-                    Graph
+                    <div>
+                      <div style={{ width: "1100px", height: "500px" }}>
+                        <Line data={graphData} options={graphOptions} />
+                      </div>
+                    </div>
                   </Typography>
                 </CardContent>
                 <CardActions>
