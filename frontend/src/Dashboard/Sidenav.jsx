@@ -3,30 +3,33 @@ import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+// import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+// import IconButton from "@mui/material/IconButton";
+// import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+// import InboxIcon from "@mui/icons-material/MoveToInbox";
+// import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useAppStore } from "../appStore";
 import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
 import AdminPanelSettingsTwoToneIcon from '@mui/icons-material/AdminPanelSettingsTwoTone';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import SettingsIcon from '@mui/icons-material/Settings';
+import {  useLocation } from "react-router-dom";
+
 
 const drawerWidth = 240;
+
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -112,6 +115,9 @@ export default function Sidenav() {
   const navigate = useNavigate();
   // const updateOpen = useAppStore((state)=> state.updateOpen);
   const open = useAppStore((state) => state.dopen);
+  const location = useLocation();
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -130,10 +136,12 @@ export default function Sidenav() {
           {/* Home */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/dashboard");
-            }}
+            
+            onClick={() => navigate("/dashboard")}
+              sx={{
+                display: "block",
+                backgroundColor: isActive("/dashboard") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              }}
           >
             <ListItemButton
               //   component={Link}
@@ -187,10 +195,11 @@ export default function Sidenav() {
           {/* Admin Panel */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/admin");
-            }}
+            // sx={{ display: "block" }}
+            onClick={() => navigate("/admin")}
+              sx={{
+                backgroundColor: isActive("/admin") ? "rgba(0, 0, 0, 0.1)" : "inherit", display:"block"
+              }}
           >
             <ListItemButton
               //   component={Link}
@@ -244,10 +253,11 @@ export default function Sidenav() {
           {/* Add Device */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/add");
-            }}
+            onClick={() => navigate("/add")}
+              sx={{
+                display: "block",
+                backgroundColor: isActive("/add") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              }}
           >
             <ListItemButton
               //   component={Link}
@@ -301,10 +311,11 @@ export default function Sidenav() {
           {/* Settings */}
           <ListItem
             disablePadding
-            sx={{ display: "block" }}
-            onClick={() => {
-              navigate("/setting");
-            }}
+            onClick={() => navigate("/setting")}
+              sx={{
+                display: "block",
+                backgroundColor: isActive("/setting") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              }}
           >
             <ListItemButton
               sx={[

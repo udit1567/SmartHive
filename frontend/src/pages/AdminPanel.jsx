@@ -15,7 +15,10 @@ import {
   DialogActions,
   TableHead,
 } from "@mui/material";
-import Sidenav from "../Dashboard/Sidenav"; // Import Sidenav or replace with actual component
+import Sidenav from "../Dashboard/Sidenav"; 
+import Navbar from "../Components/Navbar";
+
+<Navbar />
 
 const AdminPanel = () => {
   return (
@@ -27,7 +30,7 @@ const AdminPanel = () => {
           <Typography variant="h4" component="h1" gutterBottom>
             Admin Panel
           </Typography>
-          <Box height={40} />
+          <Box height={20} />
 
           {/* User Activity Log Section */}
           <Section title="User Activity Log">
