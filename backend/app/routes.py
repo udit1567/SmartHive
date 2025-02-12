@@ -1,4 +1,4 @@
-from flask import request, jsonify, session, current_app as app
+from flask import request, jsonify, session, Blueprint, current_app as app
 from .models import db, User
 from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, unset_jwt_cookies, jwt_required
 import secrets
@@ -9,6 +9,12 @@ import json
 def generate_auth_token(length=8):
     characters = string.ascii_letters + string.digits
     return ''.join(secrets.choice(characters) for _ in range(length))
+
+main = Blueprint('main', __name__)
+
+@main.route('/')
+def index():
+    return "hello from index page"
 
 def login():
     data = request.get_json()

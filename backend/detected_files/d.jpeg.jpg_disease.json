@@ -1,0 +1,54 @@
+{
+    "counts": {
+        "Tomato leaf": 5,
+        "Tomato leaf bacterial spot": 5,
+        "Tomato leaf yellow virus": 1
+    },
+    "total_diseases_detected": 11,
+    "detections": [
+        {
+            "class": "Tomato leaf",
+            "confidence": 0.6098
+        },
+        {
+            "class": "Tomato leaf",
+            "confidence": 0.5782
+        },
+        {
+            "class": "Tomato leaf bacterial spot",
+            "confidence": 0.5648
+        },
+        {
+            "class": "Tomato leaf",
+            "confidence": 0.5604
+        },
+        {
+            "class": "Tomato leaf bacterial spot",
+            "confidence": 0.5333
+        },
+        {
+            "class": "Tomato leaf bacterial spot",
+            "confidence": 0.5245
+        },
+        {
+            "class": "Tomato leaf bacterial spot",
+            "confidence": 0.5089
+        },
+        {
+            "class": "Tomato leaf bacterial spot",
+            "confidence": 0.4849
+        },
+        {
+            "class": "Tomato leaf",
+            "confidence": 0.4604
+        },
+        {
+            "class": "Tomato leaf",
+            "confidence": 0.4038
+        },
+        {
+            "class": "Tomato leaf yellow virus",
+            "confidence": 0.3715
+        }
+    ]
+}

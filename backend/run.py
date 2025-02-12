@@ -6,6 +6,7 @@ from flask_cors import CORS
 from datetime import datetime,timedelta,timezone
 import redis
 from flask_session import Session
+from app.events import socketio
 
 
 def create_app():
@@ -21,13 +22,15 @@ def create_app():
     app.config['SESSION_PERMANENT'] = False
     app.config['SESSION_USE_SIGNER'] = True
     app.config['SESSION_REDIS'] = redis.from_url('redis://127.0.0.1:6379')
+    
     jwt = JWTManager(app)
     server_session = Session(app)
+    socketio.init_app(app)
     db.init_app(app)
     CORS(app)
 
     initialize_api(app)
-
+    socketio.run(app)
     app.app_context().push()
 
     return app
@@ -35,6 +38,8 @@ def create_app():
 app = create_app()
 
 from app.routes import *
+app.register_blueprint(main)
+
 
 
 app.add_url_rule('/login', 'login', login, methods=['POST'])

@@ -318,17 +318,8 @@ export default function Home() {
             </Grid>
 
             <Grid item xs={12}>
-              <Card sx={{ height: "63vh", width: "100%" }}>
+              <Card sx={{ height: "75vh", width: "100%" }}>
                 <CardContent>
-
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="div"
-                    sx={{ fontSize: { xs: "1rem", sm: "1.5rem", md: "2rem" } }}
-                  >
-                    Temperature & humidity over the time
-                  </Typography>
                   <Typography
                     variant="body2"
                     sx={{
@@ -337,7 +328,7 @@ export default function Home() {
                     }}
                   >
                     <div>
-                      <div style={{ width: "1100px", height: "900px" }}>
+                      <div style={{ width: "1100px", height: "600px" }}>
                         <Line data={graphData} options={graphOptions} />
                       </div>
                     </div>
