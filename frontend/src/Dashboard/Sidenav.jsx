@@ -26,6 +26,7 @@ import AdminPanelSettingsTwoToneIcon from '@mui/icons-material/AdminPanelSetting
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {  useLocation } from "react-router-dom";
+import CenterFocusStrongIcon from '@mui/icons-material/CenterFocusStrong';
 
 
 const drawerWidth = 240;
@@ -179,6 +180,66 @@ export default function Sidenav() {
               </ListItemIcon>
               <ListItemText
                 primary="Home"
+                sx={[
+                  open
+                    ? {
+                        opacity: 1,
+                      }
+                    : {
+                        opacity: 0,
+                      },
+                ]}
+              />
+            </ListItemButton>
+          </ListItem>
+
+
+          {/* Object Detection */}
+          <ListItem
+            disablePadding
+            
+            onClick={() => navigate("/obj")}
+              sx={{
+                display: "block",
+                backgroundColor: isActive("/obj") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+              }}
+          >
+            <ListItemButton
+              //   component={Link}
+              //   to="/"
+              sx={[
+                {
+                  minHeight: 48,
+                  px: 2.5,
+                },
+                open
+                  ? {
+                      justifyContent: "initial",
+                    }
+                  : {
+                      justifyContent: "center",
+                    },
+              ]}
+            >
+              <ListItemIcon
+                sx={[
+                  {
+                    minWidth: 0,
+                    justifyContent: "center",
+                  },
+                  open
+                    ? {
+                        mr: 3,
+                      }
+                    : {
+                        mr: "auto",
+                      },
+                ]}
+              >
+                <CenterFocusStrongIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Object Detection "
                 sx={[
                   open
                     ? {
