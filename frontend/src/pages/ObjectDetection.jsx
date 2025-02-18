@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Sidenav from "../Dashboard/Sidenav";
+import "./ObjectDetection.css"; 
 
 function DropzoneSection({ section, files, setFiles, handleOpenDialog }) {
   const { getRootProps, getInputProps } = useDropzone({
@@ -29,54 +30,51 @@ function DropzoneSection({ section, files, setFiles, handleOpenDialog }) {
   });
 
   const thumbs = files[section]?.map((file) => (
-    <Box key={file.name} sx={{ display: "inline-flex", margin: 1 }}>
+    <Box key={file.name} className="image-preview">
       <img
         src={file.preview}
         alt={file.name}
-        style={{ width: 100, height: 100, objectFit: "cover", borderRadius: 8 }}
+        className="image-preview"
       />
     </Box>
   ));
 
   return (
     <>
-      <Box sx={{ flex: 1 }}>
-        <Typography variant="h5" gutterBottom>
-          {section === "left" ? "Object Detection" : "Plant Disease Detector"}
-        </Typography>
-        <Typography variant="subtitle1" gutterBottom>
-          {section === "left"
-            ? "Upload object to detect"
-            : "Upload plant image to detect for disease"}
-        </Typography>
-        <Box
-          {...getRootProps()}
-          sx={{
-            border: "2px dashed #ccc",
-            padding: 2,
-            textAlign: "center",
-            cursor: "pointer",
-            borderRadius: 2,
-            marginBottom: 2,
-          }}
-        >
-          <input {...getInputProps()} />
-          <Typography>
-            Drag & drop images here, or click to select files
-          </Typography>
-        </Box>
-        <Box sx={{ display: "flex", flexWrap: "wrap" }}>{thumbs}</Box>
-        {files[section]?.length > 0 && (
-          <Button
-            onClick={() => handleOpenDialog(section)}
-            variant="contained"
-            color="primary"
-            sx={{ marginTop: 2 }}
-          >
-            Upload Images
-          </Button>
-        )}
+    <Box sx={{ flex: 1 }}>
+      <Box height={60} />
+
+    
+    <Box className="dropzone-section">
+      <Typography variant="h5" className="heading" gutterBottom>
+        {section === "left" ? "Object Detection" : "Plant Disease Detector"}
+      </Typography>
+      <Typography variant="subtitle1" className="subheading" gutterBottom>
+        {section === "left"
+          ? "Upload object to detect"
+          : "Upload plant image to detect for disease"}
+      </Typography>
+      <Box {...getRootProps()} className="dropzone">
+        <input {...getInputProps()} />
+        <Typography>Drag & drop images here, or click to select files</Typography>
       </Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap" }}>{thumbs}</Box>
+      {files[section]?.length > 0 && (
+        <Button
+          onClick={() => handleOpenDialog(section)}
+          variant="contained"
+          color="primary"
+          className="upload-button"
+        >
+          Upload Images
+        </Button>
+      )}
+      <div>
+      <Typography>Uploaded Images:</Typography>
+      </div>
+    </Box>
+    
+    </Box>
     </>
   );
 }
@@ -115,22 +113,19 @@ export default function ImageUploadPage() {
   };
 
   return (
-    <>
-      <Box height={60} />
-      <Box sx={{ display: "flex" }}>
-        <Sidenav />
-        <Box sx={{ display: "flex", flexDirection: "row", gap: 2, p: 2 }}>
-          {["left", "right"].map((section) => (
-            <DropzoneSection
-              key={section}
-              section={section}
-              files={files}
-              setFiles={setFiles}
-              handleOpenDialog={handleOpenDialog}
-            />
-          ))}
-          {loading && <CircularProgress sx={{ marginTop: 2 }} />}
-        </Box>
+    <Box className="page-container">
+      <Sidenav className="sidebar" />
+      <Box className="main-content">
+        {["left", "right"].map((section) => (
+          <DropzoneSection
+            key={section}
+            section={section}
+            files={files}
+            setFiles={setFiles}
+            handleOpenDialog={handleOpenDialog}
+          />
+        ))}
+        {loading && <CircularProgress sx={{ marginTop: 2 }} />}
       </Box>
       <Dialog open={openDialog} onClose={() => handleCloseDialog(false)}>
         <DialogTitle>Confirm Upload</DialogTitle>
@@ -146,6 +141,6 @@ export default function ImageUploadPage() {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 }
