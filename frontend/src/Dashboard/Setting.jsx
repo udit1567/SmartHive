@@ -55,7 +55,7 @@ const InputPage = () => {
       <Box sx={{ display: "flex" }}>
         <Sidenav />
         <Box sx={{ p: 4 }}>
-          <Box height={40} />
+          <Box height={60} />
           <Typography variant="h4" component="h1" gutterBottom>
             Settings
           </Typography>
