@@ -52,15 +52,41 @@ const LightControlPanel = ({ open, onClose }) => {
   const [isOn, setIsOn] = useState(false);
   const [brightness, setBrightness] = useState(50);
 
+
+
+  const esp32IP = "192.168.43.175"; 
+
+  const handleTogglePower = async () => {
+    const newState = !isOn;
+    setIsOn(newState);
+    const endpoint = newState ? '/relay/ON' : '/relay/OFF';
+
+    try {
+      // Send GET request to the ESP32 server
+      const response = await fetch(`http://${esp32IP}${endpoint}`);
+      console.log("Relay toggled. Response:", await response.text());
+    } catch (error) {
+      console.error("Error toggling relay:", error);
+    }
+  };
+
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box p={3} width={300}>
         <Typography variant="h6">Lights Control</Typography>
-        <Box display="flex" alignItems="center" justifyContent="space-between" mt={2}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          mt={2}
+        >
           <Typography>Power</Typography>
-          <Switch checked={isOn} onChange={() => setIsOn(!isOn)} color="primary" />
+          <Switch
+            checked={isOn}
+            onChange={handleTogglePower}
+            color="primary"
+          />
         </Box>
-       
         <Box mt={3}>
           <Typography gutterBottom>Brightness</Typography>
           <Slider
@@ -74,13 +100,13 @@ const LightControlPanel = ({ open, onClose }) => {
           />
         </Box>
       </Box>
+    </Drawer>
+  );
+}
+
 
     
 
-
-    </Drawer>
-  );
-};
 
 const FanControlPanel = ({ open, onClose }) => {
   const [isOn, setIsOn] = useState(false);
