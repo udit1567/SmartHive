@@ -141,7 +141,7 @@ export default function Sidenav() {
             onClick={() => navigate("/dashboard")}
               sx={{
                 display: "block",
-                backgroundColor: isActive("/dashboard") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+                backgroundColor: isActive("/dashboard") ? "#D6E8EE" : "inherit",
               }}
           >
             <ListItemButton
@@ -201,7 +201,7 @@ export default function Sidenav() {
             onClick={() => navigate("/obj")}
               sx={{
                 display: "block",
-                backgroundColor: isActive("/obj") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+                backgroundColor: isActive("/obj") ? "#D6E8EE" : "inherit",
               }}
           >
             <ListItemButton
@@ -259,7 +259,7 @@ export default function Sidenav() {
             // sx={{ display: "block" }}
             onClick={() => navigate("/admin")}
               sx={{
-                backgroundColor: isActive("/admin") ? "rgba(0, 0, 0, 0.1)" : "inherit", display:"block"
+                backgroundColor: isActive("/admin") ? "#D6E8EE" : "inherit", display:"block"
               }}
           >
             <ListItemButton
@@ -317,7 +317,7 @@ export default function Sidenav() {
             onClick={() => navigate("/add")}
               sx={{
                 display: "block",
-                backgroundColor: isActive("/add") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+                backgroundColor: isActive("/add") ? "#D6E8EE" : "inherit",
               }}
           >
             <ListItemButton
@@ -370,12 +370,12 @@ export default function Sidenav() {
           </ListItem>
 
           {/* Settings */}
-          <ListItem
+          {/* <ListItem
             disablePadding
             onClick={() => navigate("/setting")}
               sx={{
                 display: "block",
-                backgroundColor: isActive("/setting") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+                backgroundColor: isActive("/setting") ? "#D6E8EE" : "inherit",
               }}
           >
             <ListItemButton
@@ -423,7 +423,9 @@ export default function Sidenav() {
                 ]}
               />
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
+
+
         </List>
         <Divider />
       </Drawer>

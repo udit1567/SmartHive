@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import MuiAppBar from "@mui/material/AppBar";
 import { useAppStore } from "../appStore";
 import { useNavigate } from "react-router-dom";
+import '../Components/fonts.css';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -192,7 +193,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "black" }}>
+      <AppBar position="fixed" sx={{ backgroundColor: "#02457A" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -205,22 +206,16 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
+         
+            variant="h5"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ fontFamily: 'sigmar-regular',
+              display: { xs: "none", sm: "block" } }}
           >
-            Build.io
+            SmartHive
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton

@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Updated import for React 18+
+import ReactDOM from 'react-dom/client'; 
 import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App';  // Your main App component
+import App from './App';  
 
-const root = ReactDOM.createRoot(document.getElementById('root'));  // Use createRoot
+const root = ReactDOM.createRoot(document.getElementById('root')); 
 
 root.render(
-  <Router>  {/* Wrap your entire app with BrowserRouter here */}
+  <Router>  {/*BrowserRouter*/}
     <App />
   </Router>
 );
