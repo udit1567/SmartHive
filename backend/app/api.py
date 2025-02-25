@@ -13,6 +13,20 @@ model = YOLO('yolov8l.pt').to('cuda' if torch.cuda.is_available() else 'cpu')
 
 model_1 = YOLO("best.pt").to('cuda' if torch.cuda.is_available() else 'cpu')
 
+def get_latest_non_null(user_id, column):
+    latest_entry = (
+        Data.query.filter(
+            getattr(Data, column).isnot(None),  # Filter out NULL values
+            Data.user_id == user_id
+        )
+        .order_by(Data.timestamp.desc())  # Get the latest non-null value
+        .first()
+    )
+    
+    if latest_entry:
+        return jsonify({column: getattr(latest_entry, column), "timestamp": latest_entry.timestamp.strftime("%d %B %Y %H:%M")})
+    return jsonify({"message": f"No valid data found for {column}"}), 404
+
 def initialize_api(app):
     api = Api(app)
 
@@ -259,8 +273,39 @@ def initialize_api(app):
                     "detections": detections
                 }, 200
             except Exception as e:
-                return {"error": str(e)}, 500        
-            
+                return {"error": str(e)}, 500
+                    
+    class GetD1(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D1")
+
+    class GetD2(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D2")
+
+    class GetD3(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D3")
+
+    class GetD4(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D4")
+
+    class GetD5(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D5")
+
+    class GetD6(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D6")
+
+    class GetD7(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D7")
+
+    class GetD8(Resource):
+        def get(self, id):
+            return get_latest_non_null(id, "D8")
 
     api.add_resource(GetData, "/get_data/<int:id>")
     api.add_resource(UpdateData, '/update')
@@ -268,6 +313,16 @@ def initialize_api(app):
     api.add_resource(DetectPlantDisease, "/detect_plant_disease")
     api.add_resource(DetectObjectsBase64, '/detect_objects_base64')
     api.add_resource(DetectPlantDiseaseBase64, '/detect_plant_disease_base64')
+    api.add_resource(GetD1, "/get_d1/<int:id>")
+    api.add_resource(GetD2, "/get_d2/<int:id>")
+    api.add_resource(GetD3, "/get_d3/<int:id>")
+    api.add_resource(GetD4, "/get_d4/<int:id>")
+    api.add_resource(GetD5, "/get_d5/<int:id>")
+    api.add_resource(GetD6, "/get_d6/<int:id>")
+    api.add_resource(GetD7, "/get_d7/<int:id>")
+    api.add_resource(GetD8, "/get_d8/<int:id>")
+
+
 
 
     return api
