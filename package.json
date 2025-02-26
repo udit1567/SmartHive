@@ -6,6 +6,6 @@
     "chart.js": "^4.4.8",
     "lucide-react": "^0.475.0",
     "react-chartjs-2": "^5.3.0",
-    "react-dropzone": "^14.3.6"
+    "react-dropzone": "^14.3.8"
   }
 }

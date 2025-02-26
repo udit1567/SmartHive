@@ -94,7 +94,6 @@ export default function Home() {
 
   }, [token, email, id]);
 
-<<<<<<< HEAD
 const filteredData = tempHumidityData.filter(entry => entry.D1 !== null && entry.D2 !== null);
 
 const graphData = {
@@ -107,6 +106,7 @@ const graphData = {
       backgroundColor: "rgba(255, 99, 132, 0.2)",
       borderColor: "rgba(255, 99, 132, 1)",
       tension: 0.6,
+      yAxisID: "y",  // Link to left y-axis
     },
     {
       label: "Humidity (%)",
@@ -115,65 +115,51 @@ const graphData = {
       backgroundColor: "rgba(0, 153, 255, 0.2)",
       borderColor: "rgba(54, 162, 235, 1)",
       tension: 0.6,
+      yAxisID: "y1",  // Link to right y-axis
     },
   ],
 };
-=======
-  const graphData = {
-    labels: tempHumidityData.map((entry) => entry.timestamp),
-    datasets: [
-      {
-        label: "Temperature (°C)",
-        data: tempHumidityData.map((entry) => entry.temperature),
-        fill: true,
-        backgroundColor: "rgba(230, 203, 209, 0.2)", //colour for temperature line
-        borderColor: "rgba(255, 99, 132, 1)",
-        tension: 0.6,
-      },
-      {
-        label: "Humidity (%)",
-        data: tempHumidityData.map((entry) => entry.humidity),
-        fill: true,
-        backgroundColor: "rgba(0, 153, 255, 0.2)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        tension: 0.6,
-      },
-    ],
-  };
->>>>>>> 8c2091364a44bbbb3bd7918d2a75d2b880dac8eb
 
-  const graphOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
+const graphOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: "Temperature and Humidity Over Time",
+    },
+  },
+  scales: {
+    x: {
       title: {
         display: true,
-        text: "Temperature and Humidity Over Time",
+        text: "Time",
       },
     },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: "Time",
-        },
+    y: {
+      title: {
+        display: true,
+        text: "Temperature (°C)",
       },
-      y: {
-        title: {
-          display: true,
-          text: "Value",
-        },
+      position: "left",
+      grid: {
+        drawOnChartArea: false, // Prevent grid overlap
       },
     },
-  };
-  const handleCopy = () => {
-    const textToCopy = profileData ? profileData.token : "Loading...";
-    navigator.clipboard.writeText(textToCopy)
-      .then(() => alert("Token copied to clipboard!"))
-      .catch((err) => console.error("Failed to copy token:", err));
-  };
+    y1: {
+      title: {
+        display: true,
+        text: "Humidity (%)",
+      },
+      position: "right",
+      grid: {
+        drawOnChartArea: false, // Prevent grid overlap
+      },
+    },
+  },
+};
 
 
   return (
@@ -250,27 +236,8 @@ const graphData = {
                         .filter(entry => entry.D1 !== null) // Filter out entries where D1 is null
                         .map((entry, index) => (
                           <tr key={index}>
-<<<<<<< HEAD
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.D1}</td>
-=======
-                            <td
-                              style={{
-                                border: "1px solid #ddd",
-                                padding: "8px",
-                              }}
-                            >
-                              {entry.timestamp}
-                            </td>
-                            <td
-                              style={{
-                                border: "1px solid #ddd",
-                                padding: "8px",
-                              }}
-                            >
-                              {entry.temperature}
-                            </td>
->>>>>>> 8c2091364a44bbbb3bd7918d2a75d2b880dac8eb
                           </tr>
                         ))}
                     </tbody>
@@ -336,27 +303,8 @@ const graphData = {
                         .filter(entry => entry.D2 !== null) // Exclude rows where D2 is null
                         .map((entry, index) => (
                           <tr key={index}>
-<<<<<<< HEAD
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.D2}</td>
-=======
-                            <td
-                              style={{
-                                border: "1px solid #ddd",
-                                padding: "8px",
-                              }}
-                            >
-                              {entry.timestamp}
-                            </td>
-                            <td
-                              style={{
-                                border: "1px solid #ddd",
-                                padding: "8px",
-                              }}
-                            >
-                              {entry.humidity}
-                            </td>
->>>>>>> 8c2091364a44bbbb3bd7918d2a75d2b880dac8eb
                           </tr>
                         ))}
                     </tbody>
