@@ -12,6 +12,8 @@ import ProfilePage from "./pages/ProfilePage";
 import useToken from './pages/useTokens';
 import AdminPanel from './pages/AdminPanel';
 import ObjectDetection from './pages/ObjectDetection';
+import PlantMonitoring from "./Components/PlantMonitoring";
+
 
 function App() {
   const { token, setToken } = useToken();
@@ -28,15 +30,22 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage token={token} setToken={setToken} />} />
+          <Route
+            path="/profile"
+            element={<ProfilePage token={token} setToken={setToken} />}
+          />
           <Route path="/profile/:email" element={<ProfilePage />} />
-          <Route path="/dashboard" element={<DashboardPage token={token} setToken={setToken} />} />
+          <Route
+            path="/dashboard"
+            element={<DashboardPage token={token} setToken={setToken} />}
+          />
           <Route path="/add" element={<Add_device />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path='/admin' element={<AdminPanel />} />
-          <Route path='/obj' element={<ObjectDetection />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/obj" element={<ObjectDetection />} />
+          <Route path="/plant" element={<PlantMonitoring />} />
         </Routes>
       </div>
     </>

@@ -193,14 +193,14 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "#02457A" }}>
+      <AppBar position="fixed" sx={{ backgroundColor: "#F57C00" }}>
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            sx={{ mr: 4 }}
             onClick={() => updateOpen(!dopen)}
           >
             <MenuIcon />
@@ -220,7 +220,7 @@ export default function Navbar() {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
+              aria-label="show new mails"
               color="inherit"
             >
               <Badge badgeContent={0} color="error">

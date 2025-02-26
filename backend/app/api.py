@@ -5,6 +5,9 @@ import tempfile
 import os
 from app.models import *
 import torch
+import base64
+from io import BytesIO
+from PIL import Image
 
 model = YOLO('yolov8l.pt').to('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -20,16 +23,23 @@ def initialize_api(app):
 
             if not data:
                 return {"message": "No data found for this user."}, 404
+            
             data_dict = [
-            {
-                "id": item.id,
-                "temperature": item.temperature,
-                "humidity": item.humidity,
-                "timestamp": item.timestamp.isoformat() if item.timestamp else None,
-                "user_id": item.user_id
-            } for item in data]
-
-        # Return the serialized data with a 200 status code
+                {
+                    "id": item.id,
+                    "D1": item.D1,
+                    "D2": item.D2,
+                    "D3": item.D3,
+                    "D4": item.D4,
+                    "D5": item.D5,
+                    "D6": item.D6,
+                    "D7": item.D7,
+                    "D8": item.D8,
+                    "timestamp": item.timestamp.isoformat() if item.timestamp else None,
+                    "user_id": item.user_id
+                } for item in data]
+            
+            # Return the serialized data with a 200 status code
             return {"data": data_dict}, 200
 
 
@@ -38,10 +48,16 @@ def initialize_api(app):
         def post(self):
             data = request.get_json()
             api_token = request.headers.get('Authorization')
-            temperature = data.get('temperature')
-            humidity = data.get('humidity')
+            D1 = data.get('D1')
+            D2 = data.get('D2')
+            D3 = data.get('D3')
+            D4 = data.get('D4')
+            D5 = data.get('D5')
+            D6 = data.get('D6')
+            D7 = data.get('D7')
+            D8 = data.get('D8')
 
-            if not api_token or not temperature or not humidity:
+            if not api_token:
                 return {"message": "Missing required parameters"}, 400
 
             user = User.query.filter_by(auth_token=api_token).first()
@@ -50,8 +66,14 @@ def initialize_api(app):
                 return {"message": "Invalid or missing API token"}, 401
 
             new_data = Data(
-                temperature=temperature,
-                humidity=humidity,
+                D1=D1,
+                D2=D2,
+                D3=D3,
+                D4=D4,
+                D5=D5,
+                D6=D6,
+                D7=D7,
+                D8=D8,
                 user_id=user.id
             )
 
@@ -60,7 +82,7 @@ def initialize_api(app):
 
             return {
                 "message": "Data successfully updated.",
-                "data": "new_data.to_dict()"
+                "data": new_data.to_dict()
             }, 200 
     class detect_objects(Resource):
         def post(self):
@@ -141,10 +163,111 @@ def initialize_api(app):
                 "detections": detections
             }, 200
 
+    class DetectObjectsBase64(Resource):
+        def post(self):
+            data = request.get_json()
+            image_base64 = data.get("image_base64")
+
+            if not image_base64:
+                return {"error": "No base64 image provided"}, 400
+
+            try:
+                # Decode base64 image
+                image_data = base64.b64decode(image_base64)
+                image = Image.open(BytesIO(image_data))
+
+                # Save image temporarily
+                temp_path = os.path.join(tempfile.gettempdir(), "temp_image.jpg")
+                image.save(temp_path)
+
+                # Run YOLO model prediction and enable saving of annotated images
+                results = model.predict(source=temp_path, save=True)
+
+                detections = []
+                class_counts = {}
+
+                for result in results:
+                    if hasattr(result, 'boxes'):
+                        for box in result.boxes:
+                            class_name = model.names[int(box.cls)]
+                            confidence = float(box.conf)
+
+                            # Add to detections
+                            detections.append({
+                                'class': class_name,
+                                'confidence': confidence
+                            })
+
+                            # Update counts
+                            class_counts[class_name] = class_counts.get(class_name, 0) + 1
+
+                # Cleanup the temporary file
+                os.remove(temp_path)
+
+                return {
+                    "counts": class_counts,
+                    "total_objects": len(detections),
+                    "detections": detections
+                }, 200
+            except Exception as e:
+                return {"error": str(e)}, 500
+    class DetectPlantDiseaseBase64(Resource):
+        def post(self):
+            data = request.get_json()
+            image_base64 = data.get("image_base64")
+
+            if not image_base64:
+                return {"error": "No base64 image provided"}, 400
+
+            try:
+                # Decode base64 image
+                image_data = base64.b64decode(image_base64)
+                image = Image.open(BytesIO(image_data))
+
+                # Save image temporarily
+                temp_path = os.path.join(tempfile.gettempdir(), "temp_image.jpg")
+                image.save(temp_path)
+
+                # Run YOLO model prediction and enable saving of annotated images
+                results = model_1.predict(source=temp_path, save=True)
+
+                detections = []
+                class_counts = {}
+
+                for result in results:
+                    if hasattr(result, 'boxes'):
+                        for box in result.boxes:
+                            class_id = int(box.cls)
+                            class_name = model_1.names[class_id]  # Get class name
+                            confidence = float(box.conf)
+
+                            # Store detection details
+                            detections.append({
+                                'class': class_name,
+                                'confidence': round(confidence, 4)
+                            })
+
+                            # Count occurrences of each class
+                            class_counts[class_name] = class_counts.get(class_name, 0) + 1
+
+                # Cleanup the temporary file
+                os.remove(temp_path)
+
+                return {
+                    "counts": class_counts,
+                    "total_diseases_detected": len(detections),
+                    "detections": detections
+                }, 200
+            except Exception as e:
+                return {"error": str(e)}, 500        
+            
+
     api.add_resource(GetData, "/get_data/<int:id>")
     api.add_resource(UpdateData, '/update')
     api.add_resource(detect_objects, '/detect_objects')
     api.add_resource(DetectPlantDisease, "/detect_plant_disease")
+    api.add_resource(DetectObjectsBase64, '/detect_objects_base64')
+    api.add_resource(DetectPlantDiseaseBase64, '/detect_plant_disease_base64')
 
 
     return api
