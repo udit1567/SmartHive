@@ -21,16 +21,14 @@ import ListItemText from "@mui/material/ListItemText";
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { useAppStore } from "../appStore";
-import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
-import AdminPanelSettingsTwoToneIcon from '@mui/icons-material/AdminPanelSettingsTwoTone';
-import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
-import SettingsIcon from '@mui/icons-material/Settings';
-import {  useLocation } from "react-router-dom";
-import CenterFocusStrongIcon from '@mui/icons-material/CenterFocusStrong';
-
-
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import AdminPanelSettingsTwoToneIcon from "@mui/icons-material/AdminPanelSettingsTwoTone";
+import AddBoxTwoToneIcon from "@mui/icons-material/AddBoxTwoTone";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { useLocation } from "react-router-dom";
+import CenterFocusStrongIcon from "@mui/icons-material/CenterFocusStrong";
+import GrassTwoToneIcon from '@mui/icons-material/GrassTwoTone';
 const drawerWidth = 240;
-
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -137,12 +135,11 @@ export default function Sidenav() {
           {/* Home */}
           <ListItem
             disablePadding
-            
             onClick={() => navigate("/dashboard")}
-              sx={{
-                display: "block",
-                backgroundColor: isActive("/dashboard") ? "rgba(0, 0, 0, 0.1)" : "inherit",
-              }}
+            sx={{
+              display: "block",
+              backgroundColor: isActive("/dashboard") ? "#D6E8EE" : "inherit",
+            }}
           >
             <ListItemButton
               //   component={Link}
@@ -193,132 +190,14 @@ export default function Sidenav() {
             </ListItemButton>
           </ListItem>
 
-
-          {/* Object Detection */}
-          <ListItem
-            disablePadding
-            
-            onClick={() => navigate("/obj")}
-              sx={{
-                display: "block",
-                backgroundColor: isActive("/obj") ? "rgba(0, 0, 0, 0.1)" : "inherit",
-              }}
-          >
-            <ListItemButton
-              //   component={Link}
-              //   to="/"
-              sx={[
-                {
-                  minHeight: 48,
-                  px: 2.5,
-                },
-                open
-                  ? {
-                      justifyContent: "initial",
-                    }
-                  : {
-                      justifyContent: "center",
-                    },
-              ]}
-            >
-              <ListItemIcon
-                sx={[
-                  {
-                    minWidth: 0,
-                    justifyContent: "center",
-                  },
-                  open
-                    ? {
-                        mr: 3,
-                      }
-                    : {
-                        mr: "auto",
-                      },
-                ]}
-              >
-                <CenterFocusStrongIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary="Object Detection "
-                sx={[
-                  open
-                    ? {
-                        opacity: 1,
-                      }
-                    : {
-                        opacity: 0,
-                      },
-                ]}
-              />
-            </ListItemButton>
-          </ListItem>
-
-          {/* Admin Panel */}
-          <ListItem
-            disablePadding
-            // sx={{ display: "block" }}
-            onClick={() => navigate("/admin")}
-              sx={{
-                backgroundColor: isActive("/admin") ? "rgba(0, 0, 0, 0.1)" : "inherit", display:"block"
-              }}
-          >
-            <ListItemButton
-              //   component={Link}
-              //   to="/add"
-              sx={[
-                {
-                  minHeight: 48,
-                  px: 2.5,
-                },
-                open
-                  ? {
-                      justifyContent: "initial",
-                    }
-                  : {
-                      justifyContent: "center",
-                    },
-              ]}
-            >
-              <ListItemIcon
-                sx={[
-                  {
-                    minWidth: 0,
-                    justifyContent: "center",
-                  },
-                  open
-                    ? {
-                        mr: 3,
-                      }
-                    : {
-                        mr: "auto",
-                      },
-                ]}
-              >
-                <AdminPanelSettingsTwoToneIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary="Admin Panel"
-                sx={[
-                  open
-                    ? {
-                        opacity: 1,
-                      }
-                    : {
-                        opacity: 0,
-                      },
-                ]}
-              />
-            </ListItemButton>
-          </ListItem>
-
           {/* Add Device */}
           <ListItem
             disablePadding
             onClick={() => navigate("/add")}
-              sx={{
-                display: "block",
-                backgroundColor: isActive("/add") ? "rgba(0, 0, 0, 0.1)" : "inherit",
-              }}
+            sx={{
+              display: "block",
+              backgroundColor: isActive("/add") ? "#D6E8EE" : "inherit",
+            }}
           >
             <ListItemButton
               //   component={Link}
@@ -369,13 +248,188 @@ export default function Sidenav() {
             </ListItemButton>
           </ListItem>
 
-          {/* Settings */}
+          {/* Object Detection */}
           <ListItem
+            disablePadding
+            onClick={() => navigate("/obj")}
+            sx={{
+              display: "block",
+              backgroundColor: isActive("/obj") ? "#D6E8EE" : "inherit",
+            }}
+          >
+            <ListItemButton
+              //   component={Link}
+              //   to="/"
+              sx={[
+                {
+                  minHeight: 48,
+                  px: 2.5,
+                },
+                open
+                  ? {
+                      justifyContent: "initial",
+                    }
+                  : {
+                      justifyContent: "center",
+                    },
+              ]}
+            >
+              <ListItemIcon
+                sx={[
+                  {
+                    minWidth: 0,
+                    justifyContent: "center",
+                  },
+                  open
+                    ? {
+                        mr: 3,
+                      }
+                    : {
+                        mr: "auto",
+                      },
+                ]}
+              >
+                <CenterFocusStrongIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Object Detection "
+                sx={[
+                  open
+                    ? {
+                        opacity: 1,
+                      }
+                    : {
+                        opacity: 0,
+                      },
+                ]}
+              />
+            </ListItemButton>
+          </ListItem>
+
+          {/* Plant Monitoring */}
+          <ListItem
+            disablePadding
+            onClick={() => navigate("/plant")}
+            sx={{
+              display: "block",
+              backgroundColor: isActive("/plant") ? "#D6E8EE" : "inherit",
+            }}
+          >
+            <ListItemButton
+              //   component={Link}
+              //   to="/"
+              sx={[
+                {
+                  minHeight: 48,
+                  px: 2.5,
+                },
+                open
+                  ? {
+                      justifyContent: "initial",
+                    }
+                  : {
+                      justifyContent: "center",
+                    },
+              ]}
+            >
+              <ListItemIcon
+                sx={[
+                  {
+                    minWidth: 0,
+                    justifyContent: "center",
+                  },
+                  open
+                    ? {
+                        mr: 3,
+                      }
+                    : {
+                        mr: "auto",
+                      },
+                ]}
+              >
+                <GrassTwoToneIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Plant Monitoring"
+                sx={[
+                  open
+                    ? {
+                        opacity: 1,
+                      }
+                    : {
+                        opacity: 0,
+                      },
+                ]}
+              />
+            </ListItemButton>
+          </ListItem>
+
+          {/* Admin Panel */}
+          <ListItem
+            disablePadding
+            // sx={{ display: "block" }}
+            onClick={() => navigate("/admin")}
+            sx={{
+              backgroundColor: isActive("/admin") ? "#D6E8EE" : "inherit",
+              display: "block",
+            }}
+          >
+            <ListItemButton
+              //   component={Link}
+              //   to="/add"
+              sx={[
+                {
+                  minHeight: 48,
+                  px: 2.5,
+                },
+                open
+                  ? {
+                      justifyContent: "initial",
+                    }
+                  : {
+                      justifyContent: "center",
+                    },
+              ]}
+            >
+              <ListItemIcon
+                sx={[
+                  {
+                    minWidth: 0,
+                    justifyContent: "center",
+                  },
+                  open
+                    ? {
+                        mr: 3,
+                      }
+                    : {
+                        mr: "auto",
+                      },
+                ]}
+              >
+                <AdminPanelSettingsTwoToneIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Admin Panel"
+                sx={[
+                  open
+                    ? {
+                        opacity: 1,
+                      }
+                    : {
+                        opacity: 0,
+                      },
+                ]}
+              />
+            </ListItemButton>
+          </ListItem>
+
+          {/* Settings */}
+          {/* <ListItem
             disablePadding
             onClick={() => navigate("/setting")}
               sx={{
                 display: "block",
-                backgroundColor: isActive("/setting") ? "rgba(0, 0, 0, 0.1)" : "inherit",
+                backgroundColor: isActive("/setting") ? "#D6E8EE" : "inherit",
               }}
           >
             <ListItemButton
@@ -423,7 +477,7 @@ export default function Sidenav() {
                 ]}
               />
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
         </List>
         <Divider />
       </Drawer>

@@ -94,6 +94,7 @@ export default function Home() {
 
   }, [token, email, id]);
 
+<<<<<<< HEAD
 const filteredData = tempHumidityData.filter(entry => entry.D1 !== null && entry.D2 !== null);
 
 const graphData = {
@@ -117,6 +118,29 @@ const graphData = {
     },
   ],
 };
+=======
+  const graphData = {
+    labels: tempHumidityData.map((entry) => entry.timestamp),
+    datasets: [
+      {
+        label: "Temperature (°C)",
+        data: tempHumidityData.map((entry) => entry.temperature),
+        fill: true,
+        backgroundColor: "rgba(230, 203, 209, 0.2)", //colour for temperature line
+        borderColor: "rgba(255, 99, 132, 1)",
+        tension: 0.6,
+      },
+      {
+        label: "Humidity (%)",
+        data: tempHumidityData.map((entry) => entry.humidity),
+        fill: true,
+        backgroundColor: "rgba(0, 153, 255, 0.2)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        tension: 0.6,
+      },
+    ],
+  };
+>>>>>>> 8c2091364a44bbbb3bd7918d2a75d2b880dac8eb
 
   const graphOptions = {
     responsive: true,
@@ -199,14 +223,26 @@ const graphData = {
                         color: "text.secondary",
                         fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
                       }}
+                    ></Typography>
+                    <table
+                      style={{
+                        width: "100%",
+                        borderCollapse: "collapse",
+                        marginTop: "10px",
+                      }}
                     >
-
-                    </Typography>
-                    <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
                       <thead>
                         <tr>
-                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Timestamp</th>
-                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Temperature (°C)</th>
+                          <th
+                            style={{ border: "1px solid #ddd", padding: "8px" }}
+                          >
+                            Timestamp
+                          </th>
+                          <th
+                            style={{ border: "1px solid #ddd", padding: "8px" }}
+                          >
+                            Temperature (°C)
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -214,8 +250,27 @@ const graphData = {
                         .filter(entry => entry.D1 !== null) // Filter out entries where D1 is null
                         .map((entry, index) => (
                           <tr key={index}>
+<<<<<<< HEAD
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.D1}</td>
+=======
+                            <td
+                              style={{
+                                border: "1px solid #ddd",
+                                padding: "8px",
+                              }}
+                            >
+                              {entry.timestamp}
+                            </td>
+                            <td
+                              style={{
+                                border: "1px solid #ddd",
+                                padding: "8px",
+                              }}
+                            >
+                              {entry.temperature}
+                            </td>
+>>>>>>> 8c2091364a44bbbb3bd7918d2a75d2b880dac8eb
                           </tr>
                         ))}
                     </tbody>
@@ -255,11 +310,25 @@ const graphData = {
                     >
                       Humidity
                     </Typography>
-                    <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "10px" }}>
+                    <table
+                      style={{
+                        width: "100%",
+                        borderCollapse: "collapse",
+                        marginTop: "10px",
+                      }}
+                    >
                       <thead>
                         <tr>
-                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Timestamp</th>
-                          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Humidity (%)</th>
+                          <th
+                            style={{ border: "1px solid #ddd", padding: "8px" }}
+                          >
+                            Timestamp
+                          </th>
+                          <th
+                            style={{ border: "1px solid #ddd", padding: "8px" }}
+                          >
+                            Humidity (%)
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -267,19 +336,37 @@ const graphData = {
                         .filter(entry => entry.D2 !== null) // Exclude rows where D2 is null
                         .map((entry, index) => (
                           <tr key={index}>
+<<<<<<< HEAD
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.D2}</td>
+=======
+                            <td
+                              style={{
+                                border: "1px solid #ddd",
+                                padding: "8px",
+                              }}
+                            >
+                              {entry.timestamp}
+                            </td>
+                            <td
+                              style={{
+                                border: "1px solid #ddd",
+                                padding: "8px",
+                              }}
+                            >
+                              {entry.humidity}
+                            </td>
+>>>>>>> 8c2091364a44bbbb3bd7918d2a75d2b880dac8eb
                           </tr>
                         ))}
                     </tbody>
                     </table>
-
                   </CardContent>
                 </Card>
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
+            {/* <Grid item xs={12} sm={6} md={4}>
               <Box
                 sx={{
                   width: "100%",
@@ -322,6 +409,91 @@ const graphData = {
                   </CardActions>
                 </Card>
               </Box>
+            </Grid> */}
+
+            <Grid item xs={12} sm={6} md={4}>
+              <Box
+                sx={{
+                  width: "100%",
+                  position: "relative",
+                  pt: "50%",
+                }}
+              >
+                <Card
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    overflowY: "auto",
+                  }}
+                >
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{
+                        fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
+                      }}
+                    >
+                      Air Quality Index
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+                      }}
+                    ></Typography>
+                    <table
+                      style={{
+                        width: "100%",
+                        borderCollapse: "collapse",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <thead>
+                        <tr>
+                          <th
+                            style={{ border: "1px solid #ddd", padding: "8px" }}
+                          >
+                            Timestamp
+                          </th>
+                          <th
+                            style={{ border: "1px solid #ddd", padding: "8px" }}
+                          >
+                            Air Quality Index
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tempHumidityData.map((entry, index) => (
+                          <tr key={index}>
+                            <td
+                              style={{
+                                border: "1px solid #ddd",
+                                padding: "8px",
+                              }}
+                            >
+                              {entry.timestamp}
+                            </td>
+                            <td
+                              style={{
+                                border: "1px solid #ddd",
+                                padding: "8px",
+                              }}
+                            >
+                              {entry.temperature}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </CardContent>
+                </Card>
+              </Box>
             </Grid>
 
             <Grid item xs={12}>
@@ -341,7 +513,6 @@ const graphData = {
                     </div>
                   </Typography>
                 </CardContent>
-                
               </Card>
             </Grid>
           </Grid>

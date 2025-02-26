@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import MuiAppBar from "@mui/material/AppBar";
 import { useAppStore } from "../appStore";
 import { useNavigate } from "react-router-dom";
+import '../Components/fonts.css';
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -192,40 +193,34 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" sx={{ backgroundColor: "black" }}>
+      <AppBar position="fixed" sx={{ backgroundColor: "#F57C00" }}>
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            sx={{ mr: 2 }}
+            sx={{ mr: 4 }}
             onClick={() => updateOpen(!dopen)}
           >
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
+         
+            variant="h5"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ fontFamily: 'sigmar-regular',
+              display: { xs: "none", sm: "block" } }}
           >
-            Build.io
+            SmartHive
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
+              aria-label="show new mails"
               color="inherit"
             >
               <Badge badgeContent={0} color="error">

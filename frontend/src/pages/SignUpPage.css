@@ -184,6 +184,15 @@
   .login-link:hover {
     color: #0c4b93;
   }
+  .success-message {
+    color: green;
+    background-color: #e6ffe6;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
   
   @keyframes shake {
     0%, 100% {
