@@ -1,10 +1,13 @@
-from flask import request, jsonify, session, Blueprint, current_app as app
+from flask import request, jsonify,send_from_directory ,session, Blueprint, current_app as app
 from .models import db, User
 from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, unset_jwt_cookies, jwt_required
 import secrets
 import string
 from datetime import datetime, timezone, timedelta
 import json
+import os
+
+BASE_FOLDER = "Detection images"
 
 def generate_auth_token(length=8):
     characters = string.ascii_letters + string.digits
@@ -102,3 +105,19 @@ def my_profile(getemail):
     }
 
     return jsonify(response_body), 200
+
+@app.route('/get-image/<category>/<api_token>/<filename>', methods=['GET'])
+def get_image(category, api_token, filename):
+    if category not in ["object detection", "plant disease"]:
+        return {"error": "Invalid category"}, 400
+
+    image_folder = os.path.join(BASE_FOLDER, category, api_token)
+    image_path = os.path.join(image_folder, filename)
+
+    # Debugging prints
+    print("Looking for image at:", image_path)
+
+    if not os.path.exists(image_path):
+        return {"error": "Image not found"}, 404
+
+    return send_from_directory(image_folder, filename)
