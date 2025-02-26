@@ -94,27 +94,29 @@ export default function Home() {
 
   }, [token, email, id]);
 
-  const graphData = {
-    labels: tempHumidityData.map((entry) => entry.timestamp),
-    datasets: [
-      {
-        label: "Temperature (°C)",
-        data: tempHumidityData.map((entry) => entry.temperature),
-        fill: true,
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        tension: 0.6,
-      },
-      {
-        label: "Humidity (%)",
-        data: tempHumidityData.map((entry) => entry.humidity),
-        fill: true,
-        backgroundColor: "rgba(0, 153, 255, 0.2)",
-        borderColor: "rgba(54, 162, 235, 1)",
-        tension: 0.6,
-      },
-    ],
-  };
+const filteredData = tempHumidityData.filter(entry => entry.D1 !== null && entry.D2 !== null);
+
+const graphData = {
+  labels: filteredData.map(entry => entry.timestamp),
+  datasets: [
+    {
+      label: "Temperature (°C)",
+      data: filteredData.map(entry => entry.D1),
+      fill: true,
+      backgroundColor: "rgba(255, 99, 132, 0.2)",
+      borderColor: "rgba(255, 99, 132, 1)",
+      tension: 0.6,
+    },
+    {
+      label: "Humidity (%)",
+      data: filteredData.map(entry => entry.D2),
+      fill: true,
+      backgroundColor: "rgba(0, 153, 255, 0.2)",
+      borderColor: "rgba(54, 162, 235, 1)",
+      tension: 0.6,
+    },
+  ],
+};
 
   const graphOptions = {
     responsive: true,
@@ -208,13 +210,16 @@ export default function Home() {
                         </tr>
                       </thead>
                       <tbody>
-                        {tempHumidityData.map((entry, index) => (
+                      {tempHumidityData
+                        .filter(entry => entry.D1 !== null) // Filter out entries where D1 is null
+                        .map((entry, index) => (
                           <tr key={index}>
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
-                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.temperature}</td>
+                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.D1}</td>
                           </tr>
                         ))}
-                      </tbody>
+                    </tbody>
+
                     </table>
                   </CardContent>
                 </Card>
@@ -258,13 +263,15 @@ export default function Home() {
                         </tr>
                       </thead>
                       <tbody>
-                        {tempHumidityData.map((entry, index) => (
+                      {tempHumidityData
+                        .filter(entry => entry.D2 !== null) // Exclude rows where D2 is null
+                        .map((entry, index) => (
                           <tr key={index}>
                             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
-                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.humidity}</td>
+                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.D2}</td>
                           </tr>
                         ))}
-                      </tbody>
+                    </tbody>
                     </table>
 
                   </CardContent>
