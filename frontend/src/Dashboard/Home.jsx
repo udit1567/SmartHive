@@ -12,6 +12,11 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import TemperatureCard from '../Components/TemperatureCard';
+import HumidityCard from '../Components/HumidityCard';
+import AQICard from "../Components/AQICard";
+
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -100,9 +105,9 @@ export default function Home() {
 
   }, [token, email, id]);
 
-const filteredData = tempHumidityData.filter(entry => entry.D1 !== null && entry.D2 !== null);
+ const filteredData = tempHumidityData.filter(entry => entry.D1 !== null && entry.D2 !== null);
 
-const graphData = {
+ const graphData = {
   labels: filteredData.map(entry => entry.timestamp),
   datasets: [
     {
@@ -124,9 +129,9 @@ const graphData = {
       yAxisID: "y1",  // Link to right y-axis
     },
   ],
-};
+ };
 
-const graphOptions = {
+ const graphOptions = {
   responsive: true,
   plugins: {
     legend: {
@@ -165,7 +170,12 @@ const graphOptions = {
       },
     },
   },
-};
+ };
+
+
+
+
+
 
 
   return (
@@ -199,7 +209,7 @@ const graphOptions = {
                   }}
                 >
                   <CardContent>
-                    <Typography
+                    {/* <Typography
                       gutterBottom
                       variant="h5"
                       component="div"
@@ -208,7 +218,9 @@ const graphOptions = {
                       }}
                     >
                       Temperature
-                    </Typography>
+                    </Typography> */}
+
+                    
                     <Typography
                       variant="body2"
                       sx={{
@@ -220,41 +232,22 @@ const graphOptions = {
                       style={{
                         width: "100%",
                         borderCollapse: "collapse",
-                        marginTop: "10px",
+                        marginTop: "9px",
                       }}
                     >
-                      <thead>
-                        <tr>
-                          <th
-                            style={{ border: "1px solid #ddd", padding: "8px" }}
-                          >
-                            Timestamp
-                          </th>
-                          <th
-                            style={{ border: "1px solid #ddd", padding: "8px" }}
-                          >
-                            Temperature (°C)
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {tempHumidityData
-                        .filter(entry => entry.D1 !== null) // Filter out entries where D1 is null
-                        .map((entry, index) => (
-                          <tr key={index}>
-                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.timestamp}</td>
-                            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{entry.D1}</td>
-                          </tr>
-                        ))}
-                    </tbody>
+                      <TemperatureCard/>
+                     
 
                     </table>
                   </CardContent>
+                  
                 </Card>
+                
               </Box>
+              
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
+            {/* <Grid item xs={12} sm={6} md={4}>
               <Box
                 sx={{
                   width: "100%",
@@ -318,6 +311,63 @@ const graphOptions = {
                   </CardContent>
                 </Card>
               </Box>
+            </Grid> */}
+
+<Grid item xs={12} sm={6} md={4}>
+              <Box
+                sx={{
+                  width: "100%",
+                  position: "relative",
+                  pt: "50%",
+                }}
+              >
+                <Card
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    overflowY: "auto",
+                  }}
+                >
+                  <CardContent>
+                    {/* <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{
+                        fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
+                      }}
+                    >
+                      Humidity
+                    </Typography> */}
+
+                    
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+                      }}
+                    ></Typography>
+                    <table
+                      style={{
+                        width: "100%",
+                        borderCollapse: "collapse",
+                        marginTop: "9px",
+                      }}
+                    >
+                      <HumidityCard/>
+                     
+
+                    </table>
+                  </CardContent>
+                  
+                </Card>
+                
+              </Box>
+              
             </Grid>
 
             {/* <Grid item xs={12} sm={6} md={4}>
@@ -365,7 +415,7 @@ const graphOptions = {
               </Box>
             </Grid> */}
 
-            <Grid item xs={12} sm={6} md={4}>
+            {/* <Grid item xs={12} sm={6} md={4}>
               <Box
                 sx={{
                   width: "100%",
@@ -448,6 +498,62 @@ const graphOptions = {
                   </CardContent>
                 </Card>
               </Box>
+            </Grid> */}
+            <Grid item xs={12} sm={6} md={4}>
+              <Box
+                sx={{
+                  width: "100%",
+                  position: "relative",
+                  pt: "50%",
+                }}
+              >
+                <Card
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    overflowY: "auto",
+                  }}
+                >
+                  <CardContent>
+                    {/* <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      sx={{
+                        fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
+                      }}
+                    >
+                      AQI
+                    </Typography> */}
+
+                    
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "text.secondary",
+                        fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" },
+                      }}
+                    ></Typography>
+                    <table
+                      style={{
+                        width: "100%",
+                        borderCollapse: "collapse",
+                        marginTop: "9px",
+                      }}
+                    >
+                      <AQICard/>
+                     
+
+                    </table>
+                  </CardContent>
+                  
+                </Card>
+                
+              </Box>
+              
             </Grid>
 
             <Grid item xs={12}>
