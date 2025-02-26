@@ -4,6 +4,7 @@ import ImageUpload from "./ImageUpload";
 import MoistureCard from "./MoistureCard";
 import MoistureGraph from "./MoistureGraph";
 import Sidenav from "../Dashboard/Sidenav";
+import PreviewImage from "./PreviewImage";
 
 const PlantMonitoring = () => {
   return (
@@ -21,7 +22,7 @@ const PlantMonitoring = () => {
             <MoistureCard />
           </Grid>
 
-           {/* Moisture Graph */}
+           {/* Moisture Graph please no errors*/}
            <Grid item xs={12} md={6} lg={7}>
             <MoistureGraph />
           </Grid>
@@ -29,6 +30,12 @@ const PlantMonitoring = () => {
           {/* Image Upload Component */}
           <Grid item xs={12} md={6} lg={6}>
             <ImageUpload />
+          </Grid>
+
+          {/*Printing previous images*/ }
+          <Grid item xs={12} md={6} lg={4}>
+            <PreviewImage/>
+            <img src="http://127.0.0.1:5000/get-image/object%20detection/ESP1588/1.jpg" alt="" />
           </Grid>
 
          

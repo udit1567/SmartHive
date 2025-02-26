@@ -44,6 +44,9 @@ export default function Home() {
   const email = JSON.parse(localStorage.getItem("email"));
   const token = localStorage.getItem("access_token");
   const id = localStorage.getItem("id");
+  
+
+  
 
   console.log("Email from localStorage:", email);
 
