@@ -33,12 +33,15 @@ const LoginPage = ({ onLoginSuccess = () => {} }) => {
       });
 
       const data = await response.json();
+      console.log(data); // Log the response data for debugging purposed
 
       if (response.ok) {
-        const { access_token, uid } = data;
+        const { access_token, auth_token ,uid } = data;
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("email", JSON.stringify(email));
         localStorage.setItem("id", uid);
+        localStorage.setItem("auth", auth_token);
+
         alert("Login successful!");
         onLoginSuccess(data);
 

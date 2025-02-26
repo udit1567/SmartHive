@@ -9,39 +9,37 @@ import PreviewImage from "./PreviewImage";
 const PlantMonitoring = () => {
   return (
     <>
-    <Box height={100} />
-    <Box sx={{ display: "flex" }}>
-        <Sidenav/>
-      {/* Adjust spacing for navbar & sidenav */}
-      
+      <Box height={100} />
+      <Box sx={{ display: "flex" }}>
+        <Sidenav />
+        {/* Adjust spacing for navbar & sidenav */}
 
-      <Container maxWidth="lg">
-        <Grid container spacing={2}>
-          {/* Top Moisture Indicator */}
-          <Grid item xs={12} md={6} lg={2.5}>
-            <MoistureCard />
+        <Container maxWidth="lg">
+          <Grid container spacing={2}>
+            {/* Top Moisture Indicator */}
+            <Grid item xs={12} md={6} lg={2.5}>
+              <MoistureCard />
+            </Grid>
+
+            {/* Moisture Graph please no errors*/}
+            <Grid item xs={12} md={6} lg={7}>
+              <MoistureGraph />
+            </Grid>
+
+            {/* Image Upload Component */}
+            <Grid item xs={12} md={6} lg={6}>
+              <ImageUpload />
+            </Grid>
+
+            {/*Printing previous images*/}
+            <Grid item xs={12} md={6} lg={4}>
+              <PreviewImage apiUrl="http://127.0.0.1:5000/fetch_plant_disease_images" />
+            </Grid>
+
+            
           </Grid>
-
-           {/* Moisture Graph please no errors*/}
-           <Grid item xs={12} md={6} lg={7}>
-            <MoistureGraph />
-          </Grid>
-
-          {/* Image Upload Component */}
-          <Grid item xs={12} md={6} lg={6}>
-            <ImageUpload />
-          </Grid>
-
-          {/*Printing previous images*/ }
-          <Grid item xs={12} md={6} lg={4}>
-            <PreviewImage/>
-            <img src="http://127.0.0.1:5000/get-image/object%20detection/ESP1588/1.jpg" alt="" />
-          </Grid>
-
-         
-        </Grid>
-      </Container>
-    </Box>
+        </Container>
+      </Box>
     </>
   );
 };

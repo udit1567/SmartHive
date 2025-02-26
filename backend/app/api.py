@@ -137,7 +137,7 @@ def initialize_api(app):
 
             # Define output directory structure
             base_folder = "Detection images"
-            object_detection_folder = os.path.join(base_folder, "object detection")  # New main folder
+            object_detection_folder = os.path.join(base_folder, "object-detection")  # New main folder
             user_folder = os.path.join(object_detection_folder, api_token)  # Unique folder for each user
 
             if not os.path.exists(user_folder):
@@ -208,7 +208,7 @@ def initialize_api(app):
 
             # Define output directory structure
             base_folder = "Detection images"
-            plant_disease_folder = os.path.join(base_folder, "plant disease detection", api_token)  # Unique folder for each user
+            plant_disease_folder = os.path.join(base_folder, "plant-disease", api_token)  # Unique folder for each user
 
             if not os.path.exists(plant_disease_folder):
                 os.makedirs(plant_disease_folder)
@@ -280,7 +280,7 @@ def initialize_api(app):
 
                 # Define output folder structure
                 base_folder = "Detection images"
-                sub_folder = "object detection"
+                sub_folder = "object-detection"
                 user_folder = os.path.join(base_folder, sub_folder, api_token)  # User-specific folder
 
                 if not os.path.exists(user_folder):
@@ -361,7 +361,7 @@ def initialize_api(app):
 
                 # Define output directory structure
                 base_folder = "Detection images"
-                plant_disease_folder = os.path.join(base_folder, "plant disease detection", api_token)  # Unique folder for each user
+                plant_disease_folder = os.path.join(base_folder, "plant-disease", api_token)  # Unique folder for each user
 
                 if not os.path.exists(plant_disease_folder):
                     os.makedirs(plant_disease_folder)
@@ -398,7 +398,7 @@ def initialize_api(app):
             if not user:
                 return {"error": "Invalid API token"}, 401
 
-            object_detection_path = os.path.join(BASE_FOLDER, "object detection", api_token)
+            object_detection_path = os.path.join(BASE_FOLDER, "object-detection", api_token)
 
             if not os.path.exists(object_detection_path):
                 return {"object_detection_images": []}, 200
@@ -422,7 +422,7 @@ def initialize_api(app):
             if not user:
                 return {"error": "Invalid API token"}, 401
 
-            plant_disease_path = os.path.join(BASE_FOLDER, "plant disease detection", api_token)
+            plant_disease_path = os.path.join(BASE_FOLDER, "plant-disease", api_token)
 
             if not os.path.exists(plant_disease_path):
                 return {"plant_disease_images": []}, 200

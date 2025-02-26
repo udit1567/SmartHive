@@ -27,7 +27,7 @@ def login():
     user = User.query.filter_by(email=email).first()
     if user and user.password == password:
         access_token = create_access_token(identity=email)
-        return jsonify({"email": user.email, "access_token": access_token ,"uid": user.id}), 200
+        return jsonify({"email": user.email, "access_token": access_token ,"uid": user.id,"auth_token": user.auth_token}), 200
 
     return jsonify({"message": "Invalid credentials!"}), 401
 
@@ -108,7 +108,7 @@ def my_profile(getemail):
 
 @app.route('/get-image/<category>/<api_token>/<filename>', methods=['GET'])
 def get_image(category, api_token, filename):
-    if category not in ["object detection", "plant disease"]:
+    if category not in ["object-detection", "plant-disease"]:
         return {"error": "Invalid category"}, 400
 
     image_folder = os.path.join(BASE_FOLDER, category, api_token)
