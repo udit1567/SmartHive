@@ -45,6 +45,7 @@ export default function Home() {
   const token = localStorage.getItem("access_token");
   const id = localStorage.getItem("id");
 
+
   console.log("Email from localStorage:", email);
 
   // Fetch profile and temperature/humidity data
@@ -60,9 +61,11 @@ export default function Home() {
       })
         .then((response) => {
           const res = response.data;
-          console.log("Response from profile API:", res);
+          console.log("Response from profile API:", res.token);
+
           if (res.access_token) {
             localStorage.setItem("access_token", res.access_token);
+            localStorage.setItem("auth_token", res.token);
           }
           setProfileData({
             profile_name: res.name,
