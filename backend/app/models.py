@@ -30,7 +30,7 @@ class Data(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "timestamp": self.timestamp.strftime("%Y-%m-%d %H:%M"),
+            "timestamp": self.timestamp.strftime("%d %B %Y %H:%M"),
             "D1": self.D1,
             "D2": self.D2,
             "D3": self.D3,
