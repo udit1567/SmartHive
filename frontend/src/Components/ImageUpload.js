@@ -8,45 +8,52 @@ const ImageUpload = () => {
   const [lastImages, setLastImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState("");
+  const [file, setFile] = useState(null); // Store selected file for upload
 
   const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file);
+    const uploadedFile = event.target.files[0];
+    if (uploadedFile) {
+      const imageURL = URL.createObjectURL(uploadedFile);
       setTempImage(imageURL);
+      setFile(uploadedFile); // Store actual file for upload
     }
   };
 
   const handleConfirmUpload = async () => {
-    if (tempImage) {
-      setLoading(true);
-      setResponseMessage("");
-      const token = localStorage.getItem("access_token");
-      const id = localStorage.getItem("id");
-      
-      const formData = new FormData();
-      formData.append("image", tempImage);
-      formData.append("id", id);
+    if (!file) {
+      setResponseMessage("No image selected.");
+      return;
+    }
 
-      try {
-        const response = await fetch("/detect_plant_disease", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        });
+    setLoading(true);
+    setResponseMessage("");
 
-        const data = await response.json();
-        setResponseMessage(data.message || "Disease detection completed.");
-        setSelectedImage(tempImage);
-        setLastImages((prev) => [tempImage, ...prev.slice(0, 4)]);
-      } catch (error) {
-        setResponseMessage("Error detecting disease. Try again.");
-      } finally {
-        setTempImage(null);
-        setLoading(false);
-      }
+    const token = localStorage.getItem("auth");
+    const id = localStorage.getItem("id");
+
+    const formData = new FormData();
+    formData.append("image", file); // Append the actual file, not tempImage URL
+    formData.append("id", id);
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/detect_plant_disease", {
+        method: "POST",
+        headers: {
+          Authorization: token, // ✅ Send token without 'Bearer'
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+      setResponseMessage(data.message || "Disease detection completed.");
+      setSelectedImage(tempImage);
+      setLastImages((prev) => [tempImage, ...prev.slice(0, 4)]);
+    } catch (error) {
+      setResponseMessage("Error detecting disease. Try again.");
+    } finally {
+      setTempImage(null);
+      setFile(null); // Clear file selection
+      setLoading(false);
     }
   };
 

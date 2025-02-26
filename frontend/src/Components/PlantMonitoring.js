@@ -33,7 +33,9 @@ const PlantMonitoring = () => {
 
             {/*Printing previous images*/}
             <Grid item xs={12} md={6} lg={4}>
+              
               <PreviewImage apiUrl="http://127.0.0.1:5000/fetch_plant_disease_images" />
+
             </Grid>
 
             
