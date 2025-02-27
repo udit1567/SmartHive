@@ -365,7 +365,7 @@ export default function Sidenav() {
           </ListItem>
 
           {/* Admin Panel */}
-          <ListItem
+          {/* <ListItem
             disablePadding
             // sx={{ display: "block" }}
             onClick={() => navigate("/admin")}
@@ -421,7 +421,7 @@ export default function Sidenav() {
                 ]}
               />
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
 
           {/* Settings */}
           {/* <ListItem
