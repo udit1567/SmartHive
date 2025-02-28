@@ -43,7 +43,7 @@ const PreviewImage = ({ apiUrl }) => {
           images.map((imgSrc, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
               <Card>
-                <CardMedia component="img" image={imgSrc} alt={`Plant Disease ${index}`} />
+                <CardMedia component="img" image={imgSrc} alt={`Plant Disease ${index}`} style={{ width: "200px", height: "200px" }}/>
               </Card>
             </Grid>
           ))

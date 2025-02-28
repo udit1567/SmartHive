@@ -28,7 +28,10 @@
   .signup-header {
     padding: 2rem;
     text-align: center;
-    background: linear-gradient(to right, #2563eb, #4f46e5);
+    /* background: linear-gradient(to right, #2563eb, #4f46e5); */
+    background: #FFECB9;
+background: linear-gradient(135deg, #ffbe0c, #f35601);
+    color: white;
     color: white;
   }
   
@@ -48,7 +51,7 @@
   }
   
   .header-subtitle {
-    color: #bfdbfe;
+    color: #f4f4f4;
   }
   
   .signup-form-container {
@@ -141,7 +144,15 @@
   .submit-button {
     width: 100%;
     padding: 0.75rem 1rem;
-    background: linear-gradient(to right, #2563eb, #4f46e5);
+    /* background: linear-gradient(to right, #2563eb, #4f46e5);
+     */
+
+     /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=ffecb9&c2=f75905&gt=l&gd=dtl
+*/
+background: #FFECB9;
+background: linear-gradient(135deg, #eeb416, #F75905);
     color: white;
     border: none;
     border-radius: 0.5rem;
@@ -174,7 +185,7 @@
   }
   
   .login-link {
-    color: #2563eb;
+    color: #eb7725;
     font-weight: 500;
     text-decoration: none;
     transition: color 0.2s ease;

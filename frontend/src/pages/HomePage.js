@@ -8,7 +8,7 @@ const HomePage = () => {
             {/* Hero Section */}
             <header className="hero-section">
                 <div className="hero-content">
-                    <h1 className="hero-title">Welcome to Build.io</h1>
+                    <h1 className="hero-title hh1">Welcome to SmartHive</h1>
                     <p className="hero-subtitle">
                         Connect, control, and monitor your devices effortlessly.
                     </p>

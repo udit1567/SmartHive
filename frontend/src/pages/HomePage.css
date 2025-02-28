@@ -11,9 +11,15 @@ body {
     margin: 0 auto;
     padding: 0;
 }
+.hh1{
+    color: #282121;
+}
 
 .hero-section {
-    background: linear-gradient(to right, #4e73df, #1cc88a);
+    /* background: linear-gradient(to right, #dbdbdb, #11b478); */
+    
+    background: #FFECB9;
+    background: linear-gradient(135deg, #FFECB9, #F75905);
     color: white;
     padding: 100px 10px;
     text-align: center;
@@ -36,8 +42,9 @@ body {
 }
 
 .hero-button {
-    background-color: #ff7f50;
+    background-color: #fecba1;
     border: none;
+    border-color: #333333;
     padding: 15px 30px;
     font-size: 1.1em;
     cursor: pointer;

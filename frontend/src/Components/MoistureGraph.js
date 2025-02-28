@@ -75,7 +75,7 @@ export default function Home() {
         title: { display: true, text: "Time" },
         ticks: {
           autoSkip: true,
-          maxTicksLimit: 10,
+          maxTicksLimit: 8,
         },
       },
       y: {
@@ -109,9 +109,9 @@ export default function Home() {
   return (
     <Card style={{ width: "100%", height: "400px" }}>
       <CardContent>
-        <Typography variant="h6">D3 Moisture Trend</Typography>
+        <Typography variant="h6"> Moisture Trend</Typography> {/*D3*/} 
         <div style={{ width: "100%", height: "100%", overflowX: "auto" }}>
-          <Line data={data} options={options} />
+          <Line data={data} options={options} style={{ width: "100%", height: "340px" }} />
         </div>
       </CardContent>
     </Card>
