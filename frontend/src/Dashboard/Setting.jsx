@@ -16,7 +16,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 const InputPage = () => {
   const [newEmail, setNewEmail] = useState("");
   const [currentPasswordForEmail, setCurrentPasswordForEmail] = useState(""); // For email change
-  const [authToken, setAuthToken] = useState("ABC123XYZ");
+  const [authToken, setAuthToken] = useState(localStorage.getItem("auth"));
   const [address, setAddress] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [currentPasswordForPasswordChange, setCurrentPasswordForPasswordChange] = useState(""); // For password change
@@ -24,7 +24,8 @@ const InputPage = () => {
   const [dialogMessage, setDialogMessage] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
 
-
+  
+  
 
   const handleCopyToken = () => {
     navigator.clipboard.writeText(authToken)
@@ -49,6 +50,7 @@ const InputPage = () => {
       console.log("Password changed");
     }
   };
+  
 
   return (
     <>
@@ -57,7 +59,7 @@ const InputPage = () => {
         <Box sx={{ p: 4 }}>
           <Box height={60} />
           <Typography variant="h4" component="h1" gutterBottom>
-            Settings
+            My Profile
           </Typography>
 
           {/* New Email and Current Password for validation */}
@@ -83,6 +85,7 @@ const InputPage = () => {
                 value={currentPasswordForEmail}
                 onChange={(e) => setCurrentPasswordForEmail(e.target.value)}
               />
+             
             </Grid>
           </Grid>
           <Button
