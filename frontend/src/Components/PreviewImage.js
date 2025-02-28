@@ -27,7 +27,7 @@ const PreviewImage = ({ apiUrl }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.plant_disease_images) {
-          setImages(data.plant_disease_images);
+          setImages(data.plant_disease_images.reverse()); // Reverse the order of images
         } else {
           console.error("Unexpected API response:", data);
         }
@@ -45,13 +45,15 @@ const PreviewImage = ({ apiUrl }) => {
   };
 
   const prevImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-    setSelectedImage(images[currentIndex === 0 ? images.length - 1 : currentIndex - 1]);
+    const newIndex = (currentIndex === 0 ? images.length - 1 : currentIndex - 1);
+    setCurrentIndex(newIndex);
+    setSelectedImage(images[newIndex]);
   };
 
   const nextImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-    setSelectedImage(images[currentIndex === images.length - 1 ? 0 : currentIndex + 1]);
+    const newIndex = (currentIndex === images.length - 1 ? 0 : currentIndex + 1);
+    setCurrentIndex(newIndex);
+    setSelectedImage(images[newIndex]);
   };
 
   const settings = {
@@ -60,6 +62,7 @@ const PreviewImage = ({ apiUrl }) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    rtl: true, // Reverse the carousel direction
     responsive: [
       {
         breakpoint: 1024,
@@ -79,7 +82,6 @@ const PreviewImage = ({ apiUrl }) => {
   };
 
   return (
-    
     <Box>
       <Typography variant="h6" sx={{ mb: 2, textAlign: "center" }}>
         Plant Disease Images
@@ -90,8 +92,8 @@ const PreviewImage = ({ apiUrl }) => {
             <Box key={index} sx={{ display: "flex", justifyContent: "center" }}>
               <Card
                 sx={{
-                  width: 150, // Change the size of images in the carousel here
-                  height: 150, // Change the size of images in the carousel here
+                  width: 150,
+                  height: 150,
                   cursor: "pointer",
                 }}
                 onClick={() => openImage(index)}

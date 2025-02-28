@@ -19,7 +19,7 @@ const ImageUpload = () => {
     }
   };
 
-  const handleConfirmUpload = async () => {
+  const handleConfirmUpload = async () => {  
     if (!file) {
       setResponseMessage("No image selected.");
       return;
@@ -32,14 +32,14 @@ const ImageUpload = () => {
     const id = localStorage.getItem("id");
 
     const formData = new FormData();
-    formData.append("image", file); // Append the actual file, not tempImage URL
+    formData.append("image", file); 
     formData.append("id", id);
 
     try {
       const response = await fetch("http://127.0.0.1:5000/detect_plant_disease", {
         method: "POST",
         headers: {
-          Authorization: token, // ✅ Send token without 'Bearer'
+          Authorization: token, // âœ… Send token without 'Bearer'
         },
         body: formData,
       });
@@ -48,11 +48,17 @@ const ImageUpload = () => {
       setResponseMessage(data.message || "Disease detection completed.");
       setSelectedImage(tempImage);
       setLastImages((prev) => [tempImage, ...prev.slice(0, 4)]);
+
+      // âœ… Refresh the page after a short delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 500); 
+
     } catch (error) {
       setResponseMessage("Error detecting disease. Try again.");
     } finally {
       setTempImage(null);
-      setFile(null); // Clear file selection
+      setFile(null); 
       setLoading(false);
     }
   };
@@ -92,7 +98,12 @@ const ImageUpload = () => {
               onClick={() => window.open(tempImage)}
             />
             <Box mt={1}>
-              <Button variant="contained" color="primary" onClick={handleConfirmUpload} disabled={loading}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleConfirmUpload}
+                disabled={loading}
+              >
                 {loading ? <CircularProgress size={24} /> : "Confirm Upload"}
               </Button>
             </Box>
