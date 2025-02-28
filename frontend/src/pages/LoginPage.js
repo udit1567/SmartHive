@@ -42,7 +42,7 @@ const LoginPage = ({ onLoginSuccess = () => {} }) => {
         localStorage.setItem("id", uid);
         localStorage.setItem("auth", auth_token);
 
-        alert("Login successful!");
+        // alert("Login successful!");
         onLoginSuccess(data);
 
         navigate("/dashboard"); // Redirect to the home page after login
