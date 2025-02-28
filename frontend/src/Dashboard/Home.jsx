@@ -107,8 +107,8 @@ export default function Home() {
 
  const filteredData = tempHumidityData.filter(entry => entry.D1 !== null && entry.D2 !== null);
 
- const graphData = {
-  labels: filteredData.map(entry => entry.timestamp),
+const graphData = {
+  labels: filteredData.map(entry => new Date(entry.timestamp).toLocaleTimeString()),
   datasets: [
     {
       label: "Temperature (°C)",
@@ -129,7 +129,8 @@ export default function Home() {
       yAxisID: "y1",  // Link to right y-axis
     },
   ],
- };
+};
+
 
  const graphOptions = {
   responsive: true,
@@ -567,7 +568,7 @@ export default function Home() {
                     }}
                   >
                     <div>
-                      <div style={{ width: "1100px", height: "600px" }}>
+                      <div style={{ width: "1100px", height: "500px" }}>
                         <Line data={graphData} options={graphOptions} />
                       </div>
                     </div>

@@ -1,6 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
+import pytz
+from datetime import datetime
 
 db = SQLAlchemy()
+
+IST = pytz.timezone("Asia/Kolkata")
+
+def get_ist_time():
+    return datetime.now(IST)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -15,7 +22,7 @@ class User(db.Model):
 
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    timestamp = db.Column(db.DateTime, nullable=False, default=db.func.now())
+    timestamp = db.Column(db.DateTime, nullable=False, default=get_ist_time)
     D1 = db.Column(db.Float, nullable=True) 
     D2 = db.Column(db.Float, nullable=True)
     D3 = db.Column(db.Float, nullable=True)
