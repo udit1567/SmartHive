@@ -22,7 +22,7 @@ const PlantMonitoring = () => {
             </Grid>
 
             {/* Moisture Graph please no errors*/}
-            <Grid item xs={12} md={6} lg={9}>
+            <Grid item xs={12} md={6} lg={9} sx={{ width: "500px", height: "400px" }}>
               <MoistureGraph />
             </Grid>
 
@@ -32,7 +32,7 @@ const PlantMonitoring = () => {
             </Grid>
 
             {/*Printing previous images*/}
-            <Grid item xs={12} md={6} lg={5}>
+            <Grid item xs={12} md={6} lg={6} >
               
               <PreviewImage apiUrl="http://127.0.0.1:5000/fetch_plant_disease_images" />
 

@@ -56,12 +56,12 @@ export default function Home() {
     labels: tempHumidityData.map((d) => new Date(d.timestamp).toLocaleTimeString()),
     datasets: [
       {
-        label: "D3 Moisture Level",
+        label: "Soil Moisture",
         data: tempHumidityData.map((d) => Math.max(0, Math.min(100, d.D3))),
-        borderColor: "blue",
+        borderColor: "orange",
         tension: 0.4,
-        pointRadius: 4,
-        pointBackgroundColor: "blue",
+        pointRadius: 2,
+        pointBackgroundColor: "orange",
       },
     ],
   };
@@ -88,7 +88,7 @@ export default function Home() {
       },
     },
     plugins: {
-      zoom: {
+      zoom: {   
         pan: {
           enabled: true,
           mode: "x",
@@ -110,8 +110,8 @@ export default function Home() {
     <Card style={{ width: "100%", height: "400px" }}>
       <CardContent>
         <Typography variant="h6"> Moisture Trend</Typography> {/*D3*/} 
-        <div style={{ width: "100%", height: "100%", overflowX: "auto" }}>
-          <Line data={data} options={options} style={{ width: "100%", height: "340px" }} />
+        <div style={{ width: "100%", height: "90%", overflowX: "auto" }}>
+          <Line data={data} options={options} style={{ width: "100%", height: "330px" }} />
         </div>
       </CardContent>
     </Card>
