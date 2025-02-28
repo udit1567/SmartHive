@@ -210,7 +210,7 @@ export default function Navbar() {
             variant="h5"
             noWrap
             component="div"
-            sx={{ fontFamily: 'sigmar-regular',
+            sx={{ fontFamily: 'verdana',
               display: { xs: "none", sm: "block" } }}
           >
             SmartHive
