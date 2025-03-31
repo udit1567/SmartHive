@@ -60,7 +60,7 @@ Smart Hive is a **full-stack IoT-based environmental monitoring and AI-powered s
 ## Installation & Setup
 ### 1. Clone the Repository
 ```sh
-git clone https://github.com/yourusername/smarthive.git
+git clone https://github.com/yourusername/smarthive.git](https://github.com/udit1567/Home.auto.git
 cd smarthive
 ```
 
@@ -94,7 +94,6 @@ npm start
 ![Screenshot 2025-02-28 191448](https://github.com/user-attachments/assets/1141a387-eba8-4b5c-aa37-fca5f2189719)
 ![Screenshot 2025-02-28 190741](https://github.com/user-attachments/assets/6dd7d095-3910-429c-ae67-348d3cd7ee44)
 ![Screenshot 2025-02-28 190754](https://github.com/user-attachments/assets/aec17a0d-12f9-4fa5-9b77-8ec689fa3d1a)
-
 ![Screenshot 2025-02-28 190816](https://github.com/user-attachments/assets/2e90409a-296b-437b-9394-09a979f96f3e)
 ![Screenshot 2025-02-28 190849](https://github.com/user-attachments/assets/041f9bdb-cf8a-4b31-b53e-cdc083c4f001)
 
@@ -104,11 +103,3 @@ npm start
 - 📡 **LoRa/Wi-Fi Mesh Networking** for extended range
 - 🔋 **Battery Optimization** for longer uptime
 
-## Contributing
-Pull requests are welcome! Feel free to submit an issue or PR.
-
-## License
-This project is licensed under the **MIT License**.
-
----
-Made with ❤️ by [Your Name]
