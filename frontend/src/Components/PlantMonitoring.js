@@ -5,7 +5,7 @@ import MoistureCard from "./MoistureCard";
 import MoistureGraph from "./MoistureGraph";
 import Sidenav from "../Dashboard/Sidenav";
 import PreviewImage from "./PreviewImage";
-
+#drgfthfh
 const PlantMonitoring = () => {
   return (
     <>
