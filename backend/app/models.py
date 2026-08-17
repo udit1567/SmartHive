@@ -5,7 +5,7 @@ from datetime import datetime
 db = SQLAlchemy()
 
 IST = pytz.timezone("Asia/Kolkata")
-
+  
 def get_ist_time():
     return datetime.now(IST)
 

@@ -8,7 +8,7 @@ import torch
 import base64
 from io import BytesIO
 from PIL import Image
-
+  
 model = YOLO('yolov8l.pt').to('cuda' if torch.cuda.is_available() else 'cpu')
 
 model_1 = YOLO("best.pt").to('cuda' if torch.cuda.is_available() else 'cpu')

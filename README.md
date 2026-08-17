@@ -1,5 +1,5 @@
 # Smart Hive
-
+ 
 ## Overview
 Smart Hive is a **full-stack IoT-based environmental monitoring and AI-powered surveillance system**. It integrates **Python Flask** with **Flask-RESTful for APIs**, **YOLOv8 for object detection**, and a **React-based frontend** for storing and visualizing data. The system allows users to **securely log in and monitor their farms, soil moisture levels, and surveillance cameras**.
 
