@@ -1,5 +1,5 @@
 myenv/
-
+node_modules/
 myenv/Include/site/python3.12/greenlet/greenlet.h
 myenv/Lib/site-packages/distutils-precedence.pth
 myenv/Lib/site-packages/isympy.py
